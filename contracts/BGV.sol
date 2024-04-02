@@ -38,8 +38,8 @@ contract BGV {
     // Mapping to store license numbers to prevent duplicates
     mapping(string => bool) public licenseNumbers;
 
-    // Mapping to store university addresses to prevent duplicates
-    mapping(address => bool) public universityAddresses;
+    // Array to store university addresses
+    address[] public universityAddresses;
 
     // Event to emit when a new student is added
     event StudentAdded(address indexed studentAddress, string name, address indexed addedBy);
@@ -103,7 +103,7 @@ contract BGV {
     // Function to add a new university
     function addUniversity(string memory _name, address _universityAddress, string memory _licenseNumber, bool _approvedByGovernment) public {
         // Ensure the university address is unique
-        require(!universityAddresses[_universityAddress], "University address already exists");
+        require(universities[_universityAddress].universityAddress == address(0), "University address already exists");
 
         // Ensure the license number is unique
         require(!licenseNumbers[_licenseNumber], "License number already exists");
@@ -118,9 +118,11 @@ contract BGV {
         newUniversity.licenseNumber = _licenseNumber;
         newUniversity.approvedByGovernment = _approvedByGovernment;
 
-        // Mark the license number and university address as used
+        // Add university address to the array
+        universityAddresses.push(_universityAddress);
+
+        // Mark the license number as used
         licenseNumbers[_licenseNumber] = true;
-        universityAddresses[_universityAddress] = true;
 
         // Emit an event to notify that a new university has been added
         emit UniversityAdded(_universityAddress, _name);
@@ -158,5 +160,14 @@ contract BGV {
 
         // Emit an event to notify that document access has been changed
         emit DocumentAccessChanged(_studentAddress, _hashValue, _newAccessType);
+    }
+
+    // Function to get all universities added
+    function getAllUniversities() public view returns (University[] memory) {
+        University[] memory allUniversities = new University[](universityAddresses.length);
+        for (uint i = 0; i < universityAddresses.length; i++) {
+            allUniversities[i] = universities[universityAddresses[i]];
+        }
+        return allUniversities;
     }
 }
