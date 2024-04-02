@@ -1,31 +1,48 @@
+const admin = require('./routes/admin.js')
+const contract = require('./controllers/contract.js')
+
 const express = require('express');
 const {Web3} = require('web3');
 const fs = require('fs');
+const path = require('path')
+require('dotenv').config()
 let cors = require("cors");
 
 
 
-const contractAddress = '0xdee9866097C80afBC41082780cB2cEb6ddCE9EfE'; // Replace with the actual address of your deployed contract
-const contractData = JSON.parse(fs.readFileSync('./build/contracts/BGV.json', 'utf8'));
-const contractABI = contractData.abi;
+// const contractAddress = process.env.COTRACT_ADDRESS; // Replace with the actual address of your deployed contract
+// const contractData = JSON.parse(fs.readFileSync('./build/contracts/BGV.json', 'utf8'));
+// const contractABI = contractData.abi;
+
 const app = express();
 app.use(cors());
-
-// Define a route to handle GET requests
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
-});
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '../', 'client', 'views'));
+app.use(express.static(path.join(__dirname,'../', 'client')));
+app.use(express.json())
 
 
 // Load the contract instance
-const web3 = new Web3(new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545')); // Change to the URL of your Ethereum node
-const contract = new web3.eth.Contract(contractABI, contractAddress);
-
+// const web3 = new Web3(new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545')); // Change to the URL of your Ethereum node
+// const contract = new web3.eth.Contract(contractABI, contractAddress);
 
 // Define a route to interact with the contract
+
+app.use('/', admin)
+
+//homepage for connection for metamask
+app.get('/' , (req,res)=>{
+    console.log(contract)
+    res.render('home')
+})
+
+app.get('/contract' , async(req,res)=>{
+    res.render('index')
+})
+
 app.post('/contract', async (req, res) => {
     try {
-        var user_address = '0x7f694bb5b2b4e33e83192a2a25167141dF42547f';
+        var user_address = '0x4ec106BF6fDD38AD17Bc1AAa92A92c293487d663';
         // Example: Call a contract function
         const result = await contract.methods.getDocumentCount(user_address).call();
         console.log(result); // Need to add .call() to execute the function
