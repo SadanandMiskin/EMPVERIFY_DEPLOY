@@ -1,13 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>EMP Verify</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shorthandcss@1.1.1/dist/shorthand.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:200,300,400,500,600,700,800,900&display=swap" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+   <style>
+    body{
+        background-image: url('./assets/images/imgs.jpg');
+        background-repeat:no-repeat;
+        background-size: contain;
+    }
+    .triangle {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 30px solid #08c4c7; /* Change the color as needed */
+  position: absolute;
+  top: 70%;
+  left: 73%;
+  transform: translate(-50%, -50%) rotate(0deg); /* Initial rotation angle */
+  animation: rotateAnimation 1s linear infinite; /* Change the duration and timing function as needed */
+}
+.beam-container {
+  width: 50%;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+}
+
+.beam {
+  width: 200%;
+  height: 2px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  animation: beamAnimation 4s infinite linear; /* Adjust duration as needed */
+}
+.br-8{
+    background-color: #232323;
+}
+@keyframes beamAnimation {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  25% {
+    left: 0;
+    opacity: 1;
+  }
+  75% {
+    left: 100%;
+    opacity: 1;
+  }
+  100% {
+    left: 200%;
+    opacity: 0;
+  }
+}
+
+@keyframes rotateAnimation {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+   </style>
 </head>
-<body>
-    <button id="metamask">Connect Metamask</button>
+
+<body class="bg-black muli">
+    <!-- <div class="triangle"></div> -->
+    <nav class="w-100pc flex flex-column md-flex-row md-px-10 py-5 bg-black" style="position: fixed;">
+        <div class="flex justify-between" style="width: 200px;">
+            <a href="#" class="flex items-center p-2 mr-4 no-underline">
+                <img class="max-h-l2 w-auto" src="../assets/images/logo.png" style="width: 200px;"/>
+                
+            </a>
+            
+            <a data-toggle="toggle-nav" data-target="#nav-items" href="#"
+                class="flex items-center ml-auto md-hidden indigo-lighter opacity-50 hover-opacity-100 ease-300 p-1 m-3">
+                <i data-feather="menu"></i>
+            </a>
+            
+        </div>
+        <div id="nav-items" class="hidden flex sm-w-100pc flex-column md-flex md-flex-row md-justify-end items-center">
+            <a href="#home" class="fs-s1 mx-3 py-3 indigo no-underline hover-underline">Home</a>
+            <a href="#features" class="fs-s1 mx-3 py-3 indigo no-underline hover-underline">Working</a>
+            <!-- <a href="#pricing" class="fs-s1 mx-3 py-3 indigo no-underline hover-underline">Pricing</a> -->
+            <a href="#blog" class="fs-s1 mx-3 py-3 indigo no-underline hover-underline">Team</a>
+            <a href="#" class="button bg-white black fw-600 no-underline mx-5">Connect</a>
+        </div>
+        
+    </nav>
+
+    <!-- hero section -->
+    <section id="home" class="min-h-100vh flex justify-start items-center" style="margin-bottom: -50px;">
+        <canvas id="myCanvas" style="width: 127px;"></canvas>
+        <div class="mx-5 md-mx-l5" style="width: 100%; margin-top: 90px;">
+            <div class="inline-block br-round bg-indigo-30 indigo-lightest p-2 fs-s2 mb-5">
+                <!-- <div class="inline-block bg-indigo indigo-lightest br-round px-3 py-1 mr-3 fs-s3">Join Meet Up</div> -->
+               Verifying documents using Blockchain
+            </div>
+            <div>
+                <h1 class="white fs-l3 lh-2 md-fs-xl3 md-lh-1 fw-900 " style="font-size: rem;">Employee <span style="color: #08c4c7;">Document</span> Verification</h1>
+                <!-- <h1 class="white fs-l3 lh-2 fw-900" >Employee Document Verification</h1> -->
+                <div class="br-8 mt-10 inline-flex">
+                   
+                    <button
+                        class="button-lg bg-indigo indigo-lightest focus-white fw-300 fs-s3 mr-0 br-l-0" id="metamask">Connect MetaMask</button>
+                
+                        
+                    </div>
+                <div class="white fs-s3 mt-3">Powered by Blockchain</span>
+            </div>
+        </div>                  
+        <div class="beam-container">
+        <div class="beam"></div>
+      </div>
+    </section>                  
+    
+
+    <!-- features -->
+    <section id="features" class="p-10 md-p-l5">
+        <h2 class="white fs-l3 fw-900" style="margin-left: 33%; margin-top: -30px;">How does it <span style="color: #08c4c7;">work?</span></h2>
+        <div class="flex flex-column md-flex-row mx-auto">
+            <div class="w-100pc md-w-40pc">
+                <div class="br-8 p-5 m-5">
+                    <div class="flex justify-center items-center bg-indigo-lightest-10 white w-l5 h-l5 br-round mb-5">
+                        <!-- <i
+                            data-feather="inbox" class="w-l5"></i> -->
+                            <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 64 64" viewBox="0 0 64 64" id="University"><path d="M10.002 41.501h-4c-.553 0-1 .447-1 1v5c0 .553.447 1 1 1h4c.553 0 1-.447 1-1v-5C11.002 41.948 10.555 41.501 10.002 41.501zM9.002 46.501h-2v-3h2V46.501zM18.002 41.501h-4c-.553 0-1 .447-1 1v5c0 .553.447 1 1 1h4c.553 0 1-.447 1-1v-5C19.002 41.948 18.555 41.501 18.002 41.501zM17.002 46.501h-2v-3h2V46.501zM30.006 41.501h-4c-.553 0-1 .447-1 1v5c0 .553.447 1 1 1h4c.553 0 1-.447 1-1v-5C31.006 41.948 30.559 41.501 30.006 41.501zM29.006 46.501h-2v-3h2V46.501zM39.014 42.501c0-.553-.447-1-1-1h-4c-.553 0-1 .447-1 1v5c0 .553.447 1 1 1h4c.553 0 1-.447 1-1V42.501zM37.014 46.501h-2v-3h2V46.501zM46.002 48.501h4c.553 0 1-.447 1-1v-5c0-.553-.447-1-1-1h-4c-.553 0-1 .447-1 1v5C45.002 48.054 45.449 48.501 46.002 48.501zM47.002 43.501h2v3h-2V43.501zM54.002 48.501h4c.553 0 1-.447 1-1v-5c0-.553-.447-1-1-1h-4c-.553 0-1 .447-1 1v5C53.002 48.054 53.449 48.501 54.002 48.501zM55.002 43.501h2v3h-2V43.501zM10.002 50.51h-4c-.553 0-1 .447-1 1v5c0 .553.447 1 1 1h4c.553 0 1-.447 1-1v-5C11.002 50.957 10.555 50.51 10.002 50.51zM9.002 55.51h-2v-3h2V55.51zM18.002 50.51h-4c-.553 0-1 .447-1 1v5c0 .553.447 1 1 1h4c.553 0 1-.447 1-1v-5C19.002 50.957 18.555 50.51 18.002 50.51zM17.002 55.51h-2v-3h2V55.51zM46.002 57.51h4c.553 0 1-.447 1-1v-5c0-.553-.447-1-1-1h-4c-.553 0-1 .447-1 1v5C45.002 57.063 45.449 57.51 46.002 57.51zM47.002 52.51h2v3h-2V52.51zM54.002 57.51h4c.553 0 1-.447 1-1v-5c0-.553-.447-1-1-1h-4c-.553 0-1 .447-1 1v5C53.002 57.063 53.449 57.51 54.002 57.51zM55.002 52.51h2v3h-2V52.51z" fill="#ffffff" class="color000000 svgShape"></path><path d="M63.977,37.382c-0.005-0.043,0.005-0.085-0.006-0.128l-0.998-4c-0.007-0.026-0.025-0.045-0.034-0.07
+                                c-0.021-0.066-0.053-0.125-0.088-0.185c-0.031-0.053-0.061-0.104-0.101-0.149c-0.044-0.052-0.095-0.092-0.148-0.134
+                                c-0.048-0.036-0.093-0.07-0.146-0.098c-0.059-0.031-0.121-0.05-0.187-0.068c-0.063-0.018-0.122-0.032-0.188-0.038
+                                c-0.027-0.002-0.051-0.016-0.079-0.016H50.041V28.5c0-0.553-0.447-1-1-1H46c-0.553,0-1,0.447-1,1v3.996h-6.003v-5.984
+                                c0-0.552-0.445-0.997-0.996-0.999V15.5c0.553,0,1-0.447,1-1v-3c0-0.553-0.447-1-1-1h-0.486L33,4.183V1.498c0-0.553-0.447-1-1-1
+                                s-1,0.447-1,1v2.685L26.485,10.5H26c-0.553,0-1,0.447-1,1v2.995c0,0.002-0.001,0.003-0.001,0.005c0,0.553,0.447,1,1,1v10.013
+                                c-0.551,0.002-0.996,0.447-0.996,0.999v5.984H19V28.5c0-0.553-0.447-1-1-1h-3.041c-0.553,0-1,0.447-1,1v3.996H1.998
+                                c-0.027,0-0.051,0.014-0.078,0.016c-0.066,0.006-0.128,0.021-0.191,0.039c-0.063,0.018-0.124,0.036-0.183,0.065
+                                c-0.055,0.028-0.101,0.064-0.149,0.102c-0.053,0.041-0.103,0.081-0.146,0.131C1.21,32.895,1.18,32.946,1.148,33
+                                c-0.034,0.059-0.065,0.117-0.087,0.183c-0.009,0.025-0.027,0.045-0.034,0.071l-0.998,4c-0.011,0.042-0.001,0.082-0.006,0.124
+                                C0.019,37.419,0,37.454,0,37.496c0,0.026,0.013,0.049,0.016,0.075c0.005,0.07,0.021,0.134,0.04,0.2
+                                c0.018,0.061,0.034,0.118,0.063,0.174c0.028,0.057,0.065,0.106,0.105,0.157c0.039,0.05,0.078,0.098,0.126,0.14
+                                s0.101,0.072,0.155,0.104c0.059,0.034,0.115,0.064,0.181,0.086c0.025,0.009,0.045,0.027,0.071,0.034
+                                c0.08,0.02,0.161,0.028,0.24,0.029c0.001,0,0.002,0,0.002,0v23.002c-0.553,0-1,0.447-1,1s0.447,1,1,1h24.979
+                                c0.007,0,0.013,0.004,0.02,0.004h12.008c0.007,0,0.013-0.004,0.02-0.004H63c0.553,0,1-0.447,1-1s-0.447-1-1-1V38.499
+                                c0.014,0,0.024-0.007,0.037-0.008c0.068-0.002,0.137-0.008,0.205-0.024c0.022-0.006,0.039-0.021,0.061-0.029
+                                c0.075-0.023,0.141-0.058,0.206-0.098c0.047-0.028,0.093-0.055,0.134-0.09c0.055-0.047,0.098-0.1,0.141-0.156
+                                c0.035-0.047,0.069-0.091,0.096-0.143c0.03-0.059,0.049-0.119,0.067-0.184s0.033-0.126,0.038-0.193
+                                C63.987,37.548,64,37.525,64,37.499C64,37.457,63.981,37.422,63.977,37.382z M26.998,61.498v-8.984H31v8.984H26.998z M33,61.498
+                                v-8.984h4.006v8.984H33z M38.006,50.514H25.998c-0.553,0-1,0.447-1,1v9.984h-1.997V37.98L32,30.778l9.001,7.202v23.518h-1.995
+                                v-9.984C39.006,50.961,38.559,50.514,38.006,50.514z M2.28,36.496l0.499-2h12.165c0.005,0,0.01,0.003,0.015,0.003H18
+                                c0.005,0,0.01-0.003,0.015-0.003h6.138l-2.499,2H2.28z M27.003,27.512h9.994v4.702l-4.372-3.498
+                                c-0.024-0.02-0.055-0.024-0.08-0.041c-0.058-0.038-0.116-0.067-0.179-0.092c-0.059-0.023-0.115-0.044-0.176-0.056
+                                c-0.064-0.013-0.127-0.016-0.192-0.016c-0.063,0-0.123,0.003-0.185,0.016c-0.063,0.012-0.121,0.032-0.182,0.057
+                                c-0.063,0.024-0.119,0.053-0.176,0.09c-0.026,0.018-0.057,0.022-0.081,0.042l-4.372,3.499V27.512z M42.353,36.499l-2.503-2.003
+                                h6.136c0.005,0,0.01,0.003,0.015,0.003h3.041c0.005,0,0.01-0.003,0.015-0.003h12.165l0.499,2.003H42.353z M47,29.5h1.041v2.996H47
+                                V29.5z M36.001,25.512h-8.002V15.5H31v1.185c-1.161,0.414-2,1.514-2,2.815v2c0,0.553,0.447,1,1,1h1c0,0.553,0.447,1,1,1
+                                s1-0.447,1-1h1c0.553,0,1-0.447,1-1v-2c0-1.302-0.839-2.401-2-2.815V15.5h3.001V25.512z M37.001,12.5v1H27v-1H37.001z M33,20.5h-2
+                                v-1c0-0.552,0.448-1,1-1s1,0.448,1,1V20.5z M32,6.223l3.058,4.277h-6.115L32,6.223z M15.959,29.5H17v2.996h-1.041V29.5z M3,38.496
+                                h18.001v23.002H3V38.496z M61,61.498H43.001V38.499H61V61.498z" fill="#ffffff" class="color000000 svgShape"></path><path d="M35,36.497c0-1.653-1.345-2.998-2.998-2.998s-2.998,1.345-2.998,2.998s1.345,2.998,2.998,2.998S35,38.15,35,36.497z
+                                 M32.002,37.495c-0.551,0-0.998-0.447-0.998-0.998s0.447-0.998,0.998-0.998S33,35.946,33,36.497S32.553,37.495,32.002,37.495z" fill="#ffffff" class="color000000 svgShape"></path></svg>
+                        </div>
+                    <h4 class="white fw-600 fs-m3 mb-5">University / Company</h4>
+                    <div class="indigo-lightest fw-600 fs-m1 lh-3 opacity-50">Universities will be able to upload documents for each student based on the student wallet address and unique document key value.</div>
+                    <!-- <a href="#"
+                        class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300">Read</a> -->
+                </div>
+                
+            </div>
+            
+            <div class="w-100pc md-w-40pc">
+                <i class="fa-solid fa-arrow-turn-down fa-2xl" style="color: #ffffff; color: #009ad1;
+                margin-top: 76px;
+                size: unset;
+                font-size: 73px;
+                margin-left: 10px;"></i>
+
+                 <i class="fa-solid fa-arrow-turn-down fa-rotate-270 fa-2xl" style="color: #ffffff; color: #00ce0e;
+                margin-top: 76px;
+                size: unset;
+                font-size: 73px;
+                margin-left: 327px;"></i>
+                <div class="br-8 p-5 m-5">
+                    <div class="flex justify-center items-center bg-indigo-lightest-10 white w-l5 h-l5 br-round mb-5">
+                        <!-- <i
+                            data-feather="cpu" class="w-l5"></i> -->
+                            <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 512 512" viewBox="0 0 512 512" id="Student"><path fill="#ffffff" d="M391 371c11.05 0 20 8.95 20 20s-8.95 20-20 20-20-8.95-20-20S379.95 371 391 371zM291 347v114H31v-41.52c0-19.87 13.04-37.39 32.07-43.1L181 341l4.5 4.5c22.37 22.37 58.63 22.37 81 0l4.5-4.5L291 347zM257.84 290.21c-9.9 3.74-20.63 5.79-31.84 5.79s-21.94-2.05-31.84-5.79c-29.47-11.16-51.56-37.35-56.91-69.21H136c-16.57 0-30-13.43-30-30s13.43-30 30-30v-20h180v20c16.57 0 30 13.43 30 30s-13.43 30-30 30h-1.25C309.4 252.86 287.31 279.05 257.84 290.21z" class="colorc3e3f7 svgShape"></path><polygon fill="#ffffff" points="316 62.25 226 96 136 62.25 106 51 226 11 346 51" class="colorc3e3f7 svgShape"></polygon><path fill="#808080" d="M226,106c-1.189,0-2.379-0.212-3.511-0.637l-120-45
+                                c-3.966-1.487-6.565-5.313-6.487-9.548c0.078-4.236,2.817-7.962,6.836-9.302l120-40c2.053-0.685,4.271-0.685,6.324,0l120,40
+                                c4.02,1.339,6.758,5.066,6.836,9.302c0.079,4.235-2.52,8.061-6.487,9.548l-120,45C228.379,105.788,227.189,106,226,106z
+                                 M135.959,51.555L226,85.32l90.041-33.765L226,21.541L135.959,51.555z" class="color0096ff svgShape"></path><path fill="#808080" d="M316 151H136c-5.523 0-10-4.477-10-10V61c0-5.523 4.477-10 10-10s10 4.477 10 10v70h160V65.364c-.641-1.319-1-2.799-1-4.364 0-5.523 4.478-10 10-10h1c5.522 0 10 4.477 10 10v80C326 146.523 321.522 151 316 151zM31 471c-5.523 0-10-4.478-10-10v-41.52c0-24.475 15.751-45.645 39.196-52.679l112.537-33.762 11.693-45.13c1.039-4.416 5.002-7.705 9.734-7.705 5.523 0 10 4.473 10 9.995 0 .847-.107 1.699-.32 2.518l-13.16 50.79c-.877 3.385-3.458 6.065-6.807 7.07l-117.93 35.38C51.257 390.364 41 404.15 41 419.481V461C41 466.523 36.523 471 31 471zM291.004 357.003c-.951 0-1.919-.137-2.877-.425l-20-6c-3.35-1.005-5.931-3.685-6.808-7.07l-13.16-50.79c-.212-.818-.32-1.661-.32-2.508 0-5.522 4.477-10.005 10-10.005 4.762 0 8.746 3.324 9.754 7.78l11.674 45.055 14.605 4.382c5.29 1.587 8.292 7.162 6.705 12.451C299.278 354.205 295.306 357.003 291.004 357.003z" class="color0096ff svgShape"></path><path fill="#808080" d="M226 372.244c-17.228 0-34.456-6.558-47.571-19.673l-4.5-4.5c-3.905-3.905-3.905-10.237 0-14.143 3.905-3.904 10.237-3.904 14.143 0l4.5 4.5c18.433 18.434 48.425 18.434 66.857 0l4.5-4.5c3.906-3.904 10.236-3.904 14.143 0 3.905 3.905 3.905 10.237 0 14.143l-4.5 4.5C260.456 365.687 243.228 372.244 226 372.244zM226 306c-12.17 0-24.071-2.165-35.374-6.435-30.672-11.615-53.706-37.708-61.619-69.176C110.274 227.071 96 210.671 96 191c0-18.604 12.767-34.283 30-38.734V141c0-5.523 4.477-10 10-10s10 4.477 10 10v20c0 5.523-4.477 10-10 10-11.028 0-20 8.972-20 20s8.972 20 20 20h1.25c4.884 0 9.053 3.528 9.862 8.344 4.685 27.901 24.07 51.472 50.59 61.515C206.73 284.27 216.253 286 226 286s19.27-1.73 28.306-5.145c26.513-10.04 45.897-33.611 50.582-61.511.81-4.816 4.979-8.344 9.862-8.344H316c11.028 0 20-8.972 20-20s-8.972-20-20-20c-5.522 0-10-4.477-10-10v-20c0-5.523 4.478-10 10-10s10 4.477 10 10v11.266c17.233 4.451 30 20.13 30 38.734 0 19.67-14.273 36.071-33.007 39.388-7.912 31.468-30.945 57.56-61.611 69.173C250.071 303.835 238.17 306 226 306zM501 511H11c-5.523 0-10-4.478-10-10v-40c0-5.522 4.477-10 10-10h280c5.522 0 10 4.478 10 10s-4.478 10-10 10H21v20h470v-20c-5.522 0-10-4.478-10-10s4.478-10 10-10h10c5.522 0 10 4.478 10 10v40C511 506.523 506.522 511 501 511z" class="color0096ff svgShape"></path><path fill="#808080" d="M491,471H291c-5.522,0-10-4.478-10-10V321c0-5.522,4.478-10,10-10h200
+                                c5.522,0,10,4.478,10,10v140C501,466.523,496.522,471,491,471z M301,451h180V331H301V451z" class="color0096ff svgShape"></path><path fill="#808080" d="M391,421c-16.542,0-30-13.458-30-30s13.458-30,30-30s30,13.458,30,30
+                                S407.542,421,391,421z M391,381c-5.514,0-10,4.486-10,10s4.486,10,10,10s10-4.486,10-10S396.514,381,391,381z" class="color0096ff svgShape"></path></svg>
+                        </div>
+                    <h4 class="white fw-600 fs-m3 mb-5">Student / Employee</h4>
+                    <div class="indigo-lightest fw-600 fs-m1 opacity-50">Students are added by universities, The documents uploaded by universities are stored in IPFS and the Hash value can be shared to Verifier.</div>
+                    <!-- <a href="#"
+                        class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300">Read</a> -->
+               
+                    </div>
+                    <!-- <i class="fa-solid fa-arrow-turn-down fa-rotate-270 fa-2xl" style="color: #ffffff;"></i> -->
+            </div>
+            <div class="w-100pc md-w-40pc">
+               
+                <div class="br-8 p-5 m-5">
+                    <div class="flex justify-center items-center bg-indigo-lightest-10 white w-l5 h-l5 br-round mb-5">
+                        <!-- <i
+                            data-feather="database" class="w-l5"></i> -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" id="verified"><g clip-path="url(#clip0_1084_3803)" fill="#000000" class="color000000 svgShape"><path fill="#a6a6a6" d="M13.3546 1.46995C12.6544 0.614752 11.3466 0.614755 10.6465 1.46995L9.65463 2.6814C9.58665 2.76443 9.47325 2.79482 9.37286 2.7569L7.90817 2.20367C6.87422 1.81314 5.74163 2.46703 5.56286 3.55774L5.30963 5.10281C5.29227 5.20871 5.20926 5.29172 5.10335 5.30908L3.55829 5.56231C2.46759 5.74108 1.81368 6.87366 2.20422 7.90762L2.75745 9.37231C2.79537 9.4727 2.76498 9.5861 2.68195 9.65408L1.4705 10.6459C0.615302 11.3461 0.615304 12.6539 1.4705 13.3541L2.68195 14.3459C2.76498 14.4139 2.79537 14.5273 2.75745 14.6277L2.20422 16.0924C1.81369 17.1263 2.46758 18.2589 3.55829 18.4377L5.10335 18.6909C5.20926 18.7083 5.29227 18.7913 5.30963 18.8972L5.56286 20.4422C5.74163 21.5329 6.87421 22.1868 7.90817 21.7963L9.37286 21.2431C9.47325 21.2052 9.58665 21.2355 9.65463 21.3186L10.6465 22.53C11.3466 23.3852 12.6544 23.3852 13.3546 22.53L14.3464 21.3186C14.4144 21.2355 14.5278 21.2052 14.6282 21.2431L16.0929 21.7963C17.1269 22.1868 18.2595 21.5329 18.4382 20.4422L18.6915 18.8972C18.7088 18.7913 18.7918 18.7083 18.8977 18.6909L20.4428 18.4377C21.5335 18.2589 22.1874 17.1263 21.7969 16.0924L21.2436 14.6277C21.2057 14.5273 21.2361 14.4139 21.3191 14.3459L22.5306 13.3541C23.3858 12.6539 23.3858 11.3461 22.5306 10.6459L21.3191 9.65408C21.2361 9.5861 21.2057 9.4727 21.2436 9.37231L21.7969 7.90762C22.1874 6.87366 21.5335 5.74108 20.4428 5.56231L18.8977 5.30908C18.7918 5.29172 18.7088 5.20871 18.6915 5.10281L18.4382 3.55774C18.2595 2.46704 17.1269 1.81313 16.0929 2.20367L14.6282 2.7569C14.5278 2.79482 14.4144 2.76443 14.3464 2.6814L13.3546 1.46995Z" class="color4dc4ff svgShape"></path><path fill="#eeeeee" fill-rule="evenodd" d="M18.0303 7.96967C18.3232 8.26256 18.3232 8.73744 18.0303 9.03033L11.0303 16.0303C10.8897 16.171 10.6989 16.25 10.5 16.25C10.3011 16.25 10.1103 16.171 9.96967 16.0303L5.96967 12.0303C5.67678 11.7374 5.67678 11.2626 5.96967 10.9697C6.26256 10.6768 6.73744 10.6768 7.03033 10.9697L10.5 14.4393L16.9697 7.96967C17.2626 7.67678 17.7374 7.67678 18.0303 7.96967Z" clip-rule="evenodd" class="coloreceff1 svgShape"></path></g><defs><clipPath id="clip0_1084_3803"><rect width="24" height="24" fill="#ffffff" class="colorffffff svgShape"></rect></clipPath></defs></svg>
+                        </div>
+                    <h4 class="white fw-600 fs-m3 mb-5">Verifier / Company</h4>
+                    <div class="indigo-lightest fw-600 fs-m1 opacity-50">Verifier can take the hash values of documents shared by student and verifier in blockchain and document verification is thus done.</div>
+                    <!-- <a href="#"
+                        class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300">Read</a> -->
+                </div>
+            </div>
+        </div>
+        <div class="beam-container" style="margin-left: 50%;">
+            <div class="beam" ></div>
+          </div>
+    </section>
+
+    <!-- slider -->
+    <!-- <section class="relative bg-indigo-lightest-10">
+        <div id="slider-1">
+            <div class="p-10 md-p-l10 flex justify-center items-center flex-column text-center">
+                <h2 class="white fs-l3 fw-900">Lorem ipsum dolor sit amet, consectetur</h2>
+                <p class="indigo-lightest fw-600 fs-m1 opacity-30 my-5">Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit, sed do eiusmod tempor </p>
+                <a href="#" class="button-md bg-indigo white fs-s3 br-4 black fw-600 no-underline m-5">BUY NOW</a>
+            </div>
+            <div class="p-10 md-p-l10 flex justify-center items-center flex-column text-center">
+                <h2 class="white fs-l3 fw-900">Lorem ipsum dolor sit amet, consectetur</h2>
+                <p class="indigo-lightest fw-600 fs-m1 opacity-30 my-5">Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit, sed do eiusmod tempor </p>
+                <a href="#" class="button-md bg-indigo white fs-s3 br-4 black fw-600 no-underline m-5">BUY NOW</a>
+            </div>
+            <div class="p-10 md-p-l10 flex justify-center items-center flex-column text-center">
+                <h2 class="white fs-l3 fw-900">Lorem ipsum dolor sit amet, consectetur</h2>
+                <p class="indigo-lightest fw-600 fs-m1 opacity-30 my-5">Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit, sed do eiusmod tempor </p>
+                <a href="#" class="button-md bg-indigo white fs-s3 br-4 black fw-600 no-underline m-5">BUY NOW</a>
+            </div>
+        </div>
+        <ul class="absolute list-none w-100pc flex justify-between top-50pc">
+            <li><button
+                    class="prev ml-10 br-round border-indigo-lightest indigo-lightest  bg-transparent flex justify-center items-center p-2 focus-indigo-lighter outline-none"><i
+                        data-feather="chevron-left"></i></button></li>
+            <li><button
+                    class="next mr-10 br-round border-indigo-lightest indigo-lightest  bg-transparent flex justify-center items-center p-2  focus-indigo-lighter outline-none"><i
+                        data-feather="chevron-right"></i></button></li>
+        </ul>
+    </section> -->
+
+    <!-- big text -->
+    <section class="p-10 md-py-10">
+        <div class="w-100pc md-w-70pc mx-auto py-10">
+            <h2 class="white fs-l2 md-fs-xl1 fw-900 lh-2">
+                EmpVerify is the only<span class="border-b bc-indigo bw-4" style="color: #009ad1;"> solution</span> that gets background verification done in less than 24 hours.</h2>
+        </div>
+    </section>
+
+    <!-- product options -->
+    <section class="py-l10">
+        <h2 class="white fs-l3 fw-900" style="margin-left: 38%; margin-top: -30px;">Team <span style="color: #9108c7;">members</span></h2>
+
+        <div class="flex flex-column md-flex-row md-w-80pc mx-auto">
+            <div class="w-100pc md-w-50pc">
+                <div class="br-8 p-5 m-5 bg-indigo-lightest-10 pointer hover-scale-up-1 ease-300">
+                    
+                    <div class="indigo-lightest fw-600 fs-m1"> Kuldeep Kumar Raju K </div>
+                    <a href="#" class="mt-10 button bg-black fs-s3 white no-underline">linkedIn</a>
+                    <a href="#" class="mt-10 button bg-black fs-s3 white no-underline">GitHub</a>
+                </div>
+            </div>
+            <div class="w-100pc md-w-50pc">
+                <div class="br-8 p-5 m-5 bg-indigo-lightest-10 pointer hover-scale-up-1 ease-300">
+                    
+                    <div class="indigo-lightest fw-600 fs-m1">Sadanand Miskin </div>
+                    <a href="#" class="mt-10 button bg-black fs-s3 white no-underline">linkedIn</a>
+                    <a href="#" class="mt-10 button bg-black fs-s3 white no-underline">GitHub</a>
+                </div>
+            </div>
+            <div class="w-100pc md-w-50pc">
+                <div class="br-8 p-5 m-5 bg-indigo-lightest-10 pointer hover-scale-up-1 ease-300">
+                    
+                    <div class="indigo-lightest fw-600 fs-m1">MD Javeed Aktar</div>
+                    <a href="#" class="mt-10 button bg-black fs-s3 white no-underline">linkedIn</a>
+                    <a href="#" class="mt-10 button bg-black fs-s3 white no-underline">GitHub</a>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+    </section>
+
+
+    <!-- pricing -->
+    
+    
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15.0.0/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="https://kit.fontawesome.com/a92e035de8.js" crossorigin="anonymous"></script>
+    <script src="../assets/js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js" integrity="sha512-FDcVY+g7vc5CXANbrTSg1K5qLyriCsGDYCE02Li1tXEYdNQPvLPHNE+rT2Mjei8N7fZbe0WLhw27j2SrGRpdMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.5/web3.min.js"></script>
-    <script src="../js/scripts.js"></script>
+    <script src="../js/scripts.js" type="module"></script>
 </body>
+
 </html>

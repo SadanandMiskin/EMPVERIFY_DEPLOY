@@ -1,27 +1,137 @@
-// const connectMetamask = document.getElementById('metamask')
-// connectMetamask.addEventListener('click' ,()=>{
+// document.addEventListener('DOMContentLoaded', async function() {
+//     if (typeof window.ethereum !== 'undefined') {
+//         // Connect to MetaMask
+//         document.getElementById('metamask').addEventListener('click', async () => {
+//             try {
+//                 // Request account access if needed
+//                 const account = await ethereum.request({ method: 'eth_requestAccounts' });
+//                 const provider = new ethers.providers.Web3Provider(window.ethereum);
+//                 const signer = provider.getSigner();
 
-// })
-document.addEventListener('DOMContentLoaded', async function() {
-    if (typeof window.ethereum !== 'undefined') {
-        const web3 = new Web3(window.ethereum); 
+//                 // Fetch contract ABI from the backend
+//                 const resposnse = await fetch('/abi');
+//                 const { abi } = await resposnse.json();
 
-        // Connect to MetaMask
-        document.getElementById('metamask').addEventListener('click', async () => {
-            try {
-                // Request account access if needed
-                await window.ethereum.request({ method: 'eth_requestAccounts' });
+//                 // Replace contractAddress with your actual contract address
+//                 const contractAddress = '0x123...'; // Replace this with your actual contract address
 
-                // Accounts now exposed
-                const accounts = await web3.eth.getAccounts();
-                console.log('Connected to MetaMask:', accounts[0]);
-                alert('Connected to MetaMask!');
-            } catch (error) {
-                console.error(error);
-                alert('Failed to connect to MetaMask. Please check if MetaMask is installed and unlocked.');
-            }
+//                 const contract = new ethers.Contract(contractAddress, abi, signer);
+//                 await contract.getAllUniversities()
+//                 // Accounts now exposed
+//                 const MetaMaskaccounts = account;
+//                 const accounts = MetaMaskaccounts[0];
+
+//                 const response = await fetch('/check', {
+//                     method: "POST",
+//                     headers: {
+//                         'Content-Type': 'application/json'
+//                     },
+//                     body: JSON.stringify({
+//                         accounts
+//                     })
+//                 });
+//                 const data = await response.json();
+//                 console.log('Connected to MetaMask:', MetaMaskaccounts[0], data);
+                
+//                 // Redirect to '/addUniversity' upon successful connection
+//                 if (response.ok) {
+//                     window.location.href = data.redirectTo;
+//                 }
+//             } catch (error) {
+//                 console.error(error);
+//                 alert('Failed to connect to MetaMask. Please check if MetaMask is installed and unlocked.');
+//             }
+//         });
+//     } else {
+//         alert('MetaMask is not installed. Please install MetaMask to use this website.');
+//     }
+// });
+
+
+
+
+
+const MoodContractAddress = '0x145e48b5a9dee4CE9B2E7cDC60f6268DEcc6a0dB';
+let MoodContractABI;
+let MoodContract; // Declare MoodContract variable here
+
+async function fetchABI() {
+    try {
+        const response = await fetch('/abi', {
+            method: 'POST'
         });
-    } else {
-        alert('MetaMask is not installed. Please install MetaMask to use this website.');
+        const { abi } = await response.json();
+        MoodContractABI = abi;
+    } catch (error) {
+        console.error('Error fetching ABI:', error);
     }
-});
+}
+
+async function createContractInstance() {
+    try {
+        await fetchABI();
+        if (MoodContractABI) {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const accounts = await provider.listAccounts();
+            const signer = provider.getSigner(accounts[0]);
+            MoodContract = new ethers.Contract(
+                MoodContractAddress,
+                MoodContractABI,
+                signer
+            );
+            console.log('Contract instance created:', MoodContract);
+        } else {
+            console.error('ABI is undefined');
+        }
+    } catch (error) {
+        console.error('Error creating contract instance:', error);
+    }
+}
+
+document.getElementById('metamask').addEventListener('click', async () => {
+    // const mood = document.getElementById("mood").value;
+//    const res = await MoodContract.addUniversity('dasds' , '0x7897aE8fD52D055430A59E51AbB904B65a63e437' ,'sd' , true);
+//     console.log(res)
+
+         const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const accounts = await provider.listAccounts();
+            const signer = provider.getSigner(accounts[0]);
+            const signerAddress = await signer.getAddress();
+        try{
+            const response = await fetch('/check', {
+                                    method: "POST",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'address': signerAddress
+                                    },
+                                    body: JSON.stringify({
+                                        signerAddress
+                                    })
+                                });
+                                const data = await response.json();
+                                console.log('Connected to MetaMask:', signerAddress, data);
+                                
+                                // Redirect to '/addUniversity' upon successful connection
+                                if (response.ok) {
+
+                                    // await fetch('/addUniversity' , {
+                                    //     method:'GET',
+                                    //     headers:{
+                                    //         'Content-Type': 'application/json',
+                                    //         Authorization: signerAddress
+                                    //     },
+                                    //     // body: {
+                                             
+                                    //     // }
+
+                                    // })
+                                    window.location.href = data.redirectTo;
+                                }
+                            } catch (error) {
+                                console.error(error);
+                                alert('Failed to connect to MetaMask. Please check if MetaMask is installed and unlocked.');
+                            }
+})
+
+
+createContractInstance();

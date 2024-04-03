@@ -6,14 +6,16 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="post" action="/addUniversity">
+    <form>
         <label>universityName</label><input type="text" id="universityName">
         <label>university Wallet Address</label><input type="text" id="universityWalletAddress">
         <label>university Lisence Number</label><input type="text" id="universityLisence">
         <label>Apoorved by Gov</label><input type="text" id="universityApprove">
-        <button type="submit">Add</button>
+        <button type="submit" id="submit">Add</button>
+        <button type="submit" id="list">LIst</button>
+        <ul id="universities-list"></ul>
     </form>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js" integrity="sha512-FDcVY+g7vc5CXANbrTSg1K5qLyriCsGDYCE02Li1tXEYdNQPvLPHNE+rT2Mjei8N7fZbe0WLhw27j2SrGRpdMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../js/addUniversity.js"></script>
 </body>
 </html>

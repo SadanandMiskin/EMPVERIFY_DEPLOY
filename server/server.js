@@ -1,13 +1,17 @@
 const admin = require('./routes/admin.js')
 const contract = require('./controllers/contract.js')
+const check = require('./routes/check.js')
 
 const express = require('express');
-const {Web3} = require('web3');
+const {
+    Web3
+} = require('web3');
 const fs = require('fs');
 const path = require('path')
 require('dotenv').config()
 let cors = require("cors");
-
+var cookieParser = require('cookie-parser')
+const session  =require('express-session')
 
 
 // const contractAddress = process.env.COTRACT_ADDRESS; // Replace with the actual address of your deployed contract
@@ -16,9 +20,15 @@ let cors = require("cors");
 
 const app = express();
 app.use(cors());
+app.use(cookieParser())
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true
+}));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../', 'client', 'views'));
-app.use(express.static(path.join(__dirname,'../', 'client')));
+app.use(express.static(path.join(__dirname, '../', 'client')));
 app.use(express.json())
 
 
@@ -29,14 +39,28 @@ app.use(express.json())
 // Define a route to interact with the contract
 
 app.use('/', admin)
+app.use('/', check)
+
+app.post('/abi', (req, res) => {
+    console.log(path.join(__dirname, '../build/contracts/BGV.json'))
+    const contractData = JSON.parse(fs.readFileSync('./build/contracts/BGV.json', 'utf8'));
+    const contractABI = contractData.abi;
+    const contractAddress = process.env.CONTRACT_ADDRESS
+    res.json({
+        abi: contractABI,
+        contractAddress
+    })
+})
+
+
 
 //homepage for connection for metamask
-app.get('/' , (req,res)=>{
-    console.log(contract)
+app.get('/', (req, res) => {
+
     res.render('home')
 })
 
-app.get('/contract' , async(req,res)=>{
+app.get('/contract', async (req, res) => {
     res.render('index')
 })
 
@@ -46,10 +70,14 @@ app.post('/contract', async (req, res) => {
         // Example: Call a contract function
         const result = await contract.methods.getDocumentCount(user_address).call();
         console.log(result); // Need to add .call() to execute the function
-        res.json({ documentCount: result.toString() }); // Send the result back as JSON
+        res.json({
+            documentCount: result.toString()
+        }); // Send the result back as JSON
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({
+            error: 'Internal server error'
+        });
     }
 });
 

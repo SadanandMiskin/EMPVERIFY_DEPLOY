@@ -1,11 +1,19 @@
 const contract = require('../controllers/contract')
 
 const express = require('express')
+const { Auth } = require('../middleware/Auth')
 const router = express.Router()
 
 // const contract = require()
 router.get('/addUniversity', async(req,res)=>{
-    res.render('admin')
+  const signerAddress = req.session.account;
+  
+    console.log('Signer Address:', signerAddress);
+    if (String(signerAddress).toLowerCase() == String(process.env.ADMIN_ADDRESS).toLowerCase()) {
+        res.render('admin');
+    } else {
+        res.json({message: 'You arent admin'});
+    }
 })
 
 
