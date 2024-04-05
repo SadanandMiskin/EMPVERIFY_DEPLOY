@@ -88,7 +88,8 @@ async function createContractInstance() {
     }
 }
 
-document.getElementById('metamask').addEventListener('click', async () => {
+document.getElementById('metamask').addEventListener('click', async (event) => {
+    event.preventDefault()
     // const mood = document.getElementById("mood").value;
 //    const res = await MoodContract.addUniversity('dasds' , '0x7897aE8fD52D055430A59E51AbB904B65a63e437' ,'sd' , true);
 //     console.log(res)
@@ -125,13 +126,25 @@ document.getElementById('metamask').addEventListener('click', async () => {
                                     //     // }
 
                                     // })
-                                    window.location.href = data.redirectTo;
+                                    
+                                    window.location.href = `${data.redirectTo}?message=${encodeURIComponent(data.message)}`;
+                                    console.log(data.message)
+                                    document.getElementById('txt').textContent = data.message
+                                    // alert(data.message)
+                                    
                                 }
                             } catch (error) {
                                 console.error(error);
                                 alert('Failed to connect to MetaMask. Please check if MetaMask is installed and unlocked.');
                             }
 })
-
+async function display() {
+    const params = new URLSearchParams(window.location.search);
+const message = params.get('message');
+if (message) {
+    document.getElementById('txt').textContent = message;
+}
+}
 
 createContractInstance();
+display()

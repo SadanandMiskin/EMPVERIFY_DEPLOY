@@ -6,14 +6,29 @@
     <title>Document</title>
 </head>
 <body>
-    <form>
+    <form id="universityForm" enctype="multipart/form-data">
         <label>universityName</label><input type="text" id="universityName">
-        <label>university Wallet Address</label><input type="text" id="universityWalletAddress">
+        <label>university Wallet Address</label><input type="text" id="universityWalletAddress" name="universityWalletAddress">
         <label>university Lisence Number</label><input type="text" id="universityLisence">
         <label>Apoorved by Gov</label><input type="text" id="universityApprove">
+        <input type="file" id="universityLogo" name="universityLogo">
         <button type="submit" id="submit">Add</button>
         <button type="submit" id="list">LIst</button>
-        <ul id="universities-list"></ul>
+        <ul id="universities-list">
+            <% contractDetails.forEach(function(contractDetail) { %>
+                <li>
+                    <%= contractDetail.name %> <%= contractDetail.universityAddress %> <%= contractDetail.licenseNumber %> <%= contractDetail.approvedByGovernment %>
+                    <% const logoBuffer = mongoDetails.find(logo => logo.universityAddress === contractDetail.universityAddress)?.logo; %>
+                    <% if (logoBuffer) { %>
+                        <% const base64String = logoBuffer.toString('base64'); %>
+                        <img src="data:image/jpeg;base64,<%= base64String %>" alt="<%= contractDetail.name %> Logo">
+                    <% } else { %>
+                        <p>No logo available</p>
+                    <% } %>
+                </li>
+            <% }); %>
+        </ul>
+        
     </form>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js" integrity="sha512-FDcVY+g7vc5CXANbrTSg1K5qLyriCsGDYCE02Li1tXEYdNQPvLPHNE+rT2Mjei8N7fZbe0WLhw27j2SrGRpdMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../js/addUniversity.js"></script>

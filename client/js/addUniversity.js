@@ -132,8 +132,34 @@ document.getElementById('submit').addEventListener('click' ,async(event) => {
         const res = await contractInstanceCall.addUniversity(universityName, universityWalletAddress, universityLicenseNumber, approvedByGov)
         console.log(res)
 
-        
-        
+        // await fetch('/addUniversity' , {
+            
+        // })
+        const form = document.getElementById('universityForm');
+        const formData = new FormData(form);
+
+        const response = await fetch('/addUniversity', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to add university');
+        }
+
+        const data = await response.json();
+        const universitiesList = document.getElementById('universities-list');
+        universitiesList.innerHTML = ''; // Clear existing list
+
+        for (const universityData of data) {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${universityData.name}  ${universityData.universityAddress} ${universityData.licenseNumber} ${universityData.approvedByGovernment}`;
+
+            const image = document.createElement('img');
+            image.src = `data:image/jpeg;base64,${universityData.logo}`; // Assuming 'logo' is the field storing image path in MongoDB
+            listItem.appendChild(image);
+            universitiesList.appendChild(listItem);
+        }
     } catch (error) {
         console.error(error)
     }
@@ -153,6 +179,22 @@ async function displayUniversities(){
         
     } catch (error) {
         console.error(error)
+    }
+}
+
+async function fetchUniversityDataFromMongoDB(universityAddress) {
+    try {
+        const response = await fetch(`/university/${universityAddress}`); // Assuming an endpoint to fetch university data from MongoDB
+        if (response.ok) {
+            const universityData = await response.json();
+            return universityData;
+        } else {
+            console.error(`Failed to fetch data for university with address: ${universityAddress}`);
+            return null;
+        }
+    } catch (error) {
+        console.error(error);
+        return null;
     }
 }
 

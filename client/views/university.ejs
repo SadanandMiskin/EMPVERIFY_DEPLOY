@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>Welcome, <%= university %></h1>
+    <form id="studentform" enctype="multipart/form-data">
+        <label>Student Name</label><input type="text" id="studentName" name="studentName">
+        <label>student Wallet Address</label><input type="text" id="studentWalletAddress" name="studentWalletAddress">
+        <input type="file" id="studentProfile" name="studentProfile">
+        <button type="submit" id="submit">Add</button>
+        <ul id="student-list">
+            <% studentList.forEach(function(student){ %>
+                <li>
+                    <h2>Student Name: <%= student.studentName %></h2>
+                    <p>Student Address: <%= student.studentAddress %></p>
+                    <% if (student.profile) { %>
+                        <img src="data:image/jpeg;base64,<%= student.profile.toString('base64') %>" alt="Student Image">
+                    <% } %>
+                    <h3>University Details:</h3>
+                    <ul>
+                        <li>
+                            <p>University ID: <%= student.university._id %></p>
+                            <p>University Address: <%= student.university.universityAddress %></p>
+                            <% if (student.university.logo) { %>
+                                <img src="data:image/jpeg;base64,<%= student.university.logo.toString('base64') %>" alt="University Logo">
+                            <% } %>
+                        </li>
+                    </ul>
+                </li>
+            <% }) %>
+        </ul>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js" integrity="sha512-FDcVY+g7vc5CXANbrTSg1K5qLyriCsGDYCE02Li1tXEYdNQPvLPHNE+rT2Mjei8N7fZbe0WLhw27j2SrGRpdMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../js/addStudent.js"></script>
+</body>
+</html>

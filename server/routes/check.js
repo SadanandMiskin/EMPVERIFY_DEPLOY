@@ -1,30 +1,38 @@
 const express= require('express')
 const { setSignerAddress } = require('../middleware/Auth')
+const contract = require('../controllers/contract')
 const router = express.Router()
 
-router.post('/check' ,setSignerAddress, async(req,res)=>{
-    const {signerAddress} = req.body
+
+router.post('/check', setSignerAddress, async(req, res) => {
+    const { signerAddress } = req.body;
+    const adminAddress = process.env.ADMIN_ADDRESS.toLowerCase();
+    
     try {
-        req.session.account = signerAddress
-        const adminAddress = String(process.env.ADMIN_ADDRESS).toLowerCase();
-        const account = String(signerAddress).toLowerCase()
-        console.log(account)
+        req.session.account = signerAddress;
+
+        const account = signerAddress.toLowerCase();
+        const accountAddress = await contract.methods.getAllUniversities().call();
         
-        if(account == adminAddress){
-            return res.json({redirectTo: '/addUniversity' })
+        const universityAddress = accountAddress.find(item => item.universityAddress.toLowerCase() === account);
+        
+        if (universityAddress && universityAddress.universityAddress.toLowerCase() === account && universityAddress.universityAddress.toLowerCase() !== adminAddress) {
+            req.session.university = account;
+            return res.json({ redirectTo: '/addStudent', message: '' });
+        }
+
+        else if (account === adminAddress) {
+            return res.json({ redirectTo: '/addUniversity', message: '' });
+        }
+        else {
+            return res.json({redirectTo: '/', message: 'Not authorized, Contact Admin or your Organization to add you :)'})
         }
          
-        else {
-            // return res.json({
-            //     auth: false
-            // })
-            return res.json({redirectTo: '/'})
-        }
-    
     } catch (err) {
-        console.error(err)
+        console.error(err);
+        return res.status(500).json({ error: 'Internal server error' });
     }
+});
 
-})
 
 module.exports = router

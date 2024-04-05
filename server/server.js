@@ -1,17 +1,18 @@
 const admin = require('./routes/admin.js')
 const contract = require('./controllers/contract.js')
 const check = require('./routes/check.js')
+const university = require('./routes/university.js')
 
+
+require('dotenv').config()
 const express = require('express');
-const {
-    Web3
-} = require('web3');
+const {  Web3 } = require('web3');
 const fs = require('fs');
 const path = require('path')
-require('dotenv').config()
-let cors = require("cors");
-var cookieParser = require('cookie-parser')
+const cors = require("cors");
+const cookieParser = require('cookie-parser')
 const session  =require('express-session')
+const { db } = require('./config/db.js')
 
 
 // const contractAddress = process.env.COTRACT_ADDRESS; // Replace with the actual address of your deployed contract
@@ -26,6 +27,9 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+
+
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../', 'client', 'views'));
 app.use(express.static(path.join(__dirname, '../', 'client')));
@@ -40,6 +44,7 @@ app.use(express.json())
 
 app.use('/', admin)
 app.use('/', check)
+app.use('/', university)
 
 app.post('/abi', (req, res) => {
     console.log(path.join(__dirname, '../build/contracts/BGV.json'))
@@ -60,29 +65,30 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 
-app.get('/contract', async (req, res) => {
-    res.render('index')
-})
+// app.get('/contract', async (req, res) => {
+//     res.render('index')
+// })
 
-app.post('/contract', async (req, res) => {
-    try {
-        var user_address = '0x4ec106BF6fDD38AD17Bc1AAa92A92c293487d663';
-        // Example: Call a contract function
-        const result = await contract.methods.getDocumentCount(user_address).call();
-        console.log(result); // Need to add .call() to execute the function
-        res.json({
-            documentCount: result.toString()
-        }); // Send the result back as JSON
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({
-            error: 'Internal server error'
-        });
-    }
-});
+// app.post('/contract', async (req, res) => {
+//     try {
+//         var user_address = '0x4ec106BF6fDD38AD17Bc1AAa92A92c293487d663';
+//         // Example: Call a contract function
+//         const result = await contract.methods.getDocumentCount(user_address).call();
+//         console.log(result); // Need to add .call() to execute the function
+//         res.json({
+//             documentCount: result.toString()
+//         }); // Send the result back as JSON
+//     } catch (error) {
+//         console.error('Error:', error);
+//         res.status(500).json({
+//             error: 'Internal server error'
+//         });
+//     }
+// });
 
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+    await db()
     console.log(`Server is running on http://localhost:${PORT}`);
 });
