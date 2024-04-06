@@ -1,10 +1,52 @@
 const express = require('express')
+// const {create} = require('ipfs-http-client')
 const multer = require('multer');
 const universityModel = require('../models/university');
 const studentModel = require('../models/student');
 const contract = require('../controllers/contract');
 const router = express.Router() 
 const upload = multer();
+const { create } = require('ipfs-http-client');
+const hashMap = new Map()
+// async function createNode(){
+//     const {createHelia} = await import('helia')
+//     const {unixfs} = await import('@helia/unixfs')
+//     const helia = await createHelia()
+//     const fs = unixfs(helia)
+//     return fs
+// }
+
+const ipfs = create({ host: 'localhost', port: '5001', protocol: 'http' });
+
+router.post('/uploadToIPFS', upload.single('studentDocument'), async (req, res) => {
+    try {
+        const studentAddress = req.body.studentAddress
+        console.log(studentAddress)
+        const fileData = req.file.buffer;
+        const { cid } = await ipfs.add(fileData, { onlyHash: true });
+        const existingFile = await ipfs.dag.get(cid);
+        if (existingFile) {
+            console.log('File already exists in IPFS. CID:', cid.toString());
+            return res.status(400).json({ error: 'File already exists' });
+        }
+
+        else {
+            const result = await ipfs.add(fileData);
+            const hash = result.cid;
+            const student = await studentModel.findOne({ studentAddress: studentAddress })
+        console.log(student)
+         student.documentHash.push(hash)
+        await student.save()
+        console.log('File uploaded to IPFS. CID:', cid);
+        res.status(200).json({ cid: cid.toString() });
+        }
+        
+    } catch (error) {
+        console.error('Error uploading file to IPFS:', error);
+        res.status(500).json({ error: 'Failed to upload file to IPFS' });
+    }
+});
+
 
 router.get('/addStudent' , async(req,res)=>{
     const signerAddress = req.session.account;
@@ -58,6 +100,35 @@ router.post('/addStudent' ,upload.single('studentProfile') ,async(req,res)=>{
         console.error(error)
     }
 })
+
+// let studentAddress
+
+
+
+router.post('/studentProfile/:address', async(req,res)=>{
+    const address = req.params.address
+    // studentAddress = address
+    try {
+        res.redirect(`/studentProfile?address=${address}`)
+    } catch (error) {
+        console.error(error)
+    }
+
+})
+
+
+router.get('/studentProfile' , async(req,res)=>{
+    try {
+        const studentAddress = req.query.address
+        // console.log(typeof studentAddress)
+        const studentDetails = await studentModel.findOne({studentAddress: studentAddress}).populate('university')
+        // console.log(fullStudent)
+        res.render('studentProfile' , {studentDetails: studentDetails})
+    } catch (error) {
+        console.error(error)
+    }
+})
+
 
 
 

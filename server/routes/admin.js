@@ -5,7 +5,7 @@ const express = require('express')
 const multer = require('multer')
 const universityModel = require('../models/university')
 
-const router = express.Router()
+const router = express.Router() 
 
 
 const upload = multer();
@@ -39,6 +39,7 @@ router.post('/addUniversity', upload.single("universityLogo"), async (req, res) 
         const logoData = req.file.buffer;
 
        const result=  await universityModel.create({
+        universityName: universityName,
           universityAddress: universityWalletAddress,
           logo: logoData
 

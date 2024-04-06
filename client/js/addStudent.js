@@ -59,12 +59,12 @@ document.getElementById('submit').addEventListener('click' ,async(event)=>{
         const universities = await contractInstanceCall.getAllUniversities()
         console.log(universities)
         const universityExists = universities.filter((item) => {return item.universityAddress == studentWalletAddress})
+        console.log(universityExists)
+        // if(!universityExists) {
+        //     console.log('Student wallet cannot be some university wallet')
+        // }
 
-        if(universityExists) {
-            console.log('Student wallet cannot be some university wallet')
-        }
-
-        else{
+        // else{
             
         const res = await contractInstanceCall.addStudent(studentName , studentWalletAddress)
         // const universityAddress = res.from
@@ -80,11 +80,15 @@ document.getElementById('submit').addEventListener('click' ,async(event)=>{
         console.log('added student' , studentAdd)
         console.log(res)
         }
+    // }
     }
-    } catch (error) {
+     catch (error) {
         console.error(error)
     }
 })
+
+// const documentUploadForm = ;
+
 
 async function initializeApp() {
     await createContractInstance();

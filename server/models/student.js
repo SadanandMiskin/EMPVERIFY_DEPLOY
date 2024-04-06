@@ -1,5 +1,10 @@
 const mongoose = require('mongoose')
 
+
+const docuHash = mongoose.Schema({
+    hash: String
+})
+
 const studentSchema = mongoose.Schema({
     university: 
     {
@@ -8,7 +13,8 @@ const studentSchema = mongoose.Schema({
     },
     studentName: String,
     studentAddress: String,
-    profile: Buffer
+    profile: Buffer,
+    documentHash: [docuHash]
 })
 
 const studentModel = mongoose.model('studentModel' , studentSchema)
