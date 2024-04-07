@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 
 const docuHash = mongoose.Schema({
+    fileName: String,
     hash: String
 })
 

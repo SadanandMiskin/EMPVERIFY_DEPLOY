@@ -75,7 +75,8 @@ async function createContractInstance() {
             try {
                 const response = await fetch('/uploadToIPFS', {
                     method: 'POST',
-                    body: formData  // No need to set Content-Type header, fetch will automatically set it
+                    body: formData ,
+                    // No need to set Content-Type header, fetch will automatically set it
                 });
                 
                 if (response.ok) {

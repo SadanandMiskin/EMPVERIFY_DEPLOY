@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1><%= student.studentName %></h1>
+    <h2><%= student.studentAddress %></h2>
+    <img src="data:image/jpeg;base64,<%= student.profile.toString('base64') %>" alt="Student Image">
+
+    <h2>Documents: </h2>
+    <% student.documentHash.forEach((doc)=>{ %>
+        <p><%= doc.fileName %></p>
+        <p><%= doc.hash %></p>
+    <% }) %>
+    
+</body>
+</html>

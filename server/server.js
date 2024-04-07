@@ -2,7 +2,7 @@ const admin = require('./routes/admin.js')
 const contract = require('./controllers/contract.js')
 const check = require('./routes/check.js')
 const university = require('./routes/university.js')
-
+const student = require('./routes/student.js')
 
 require('dotenv').config()
 const express = require('express');
@@ -45,6 +45,7 @@ app.use(express.json())
 app.use('/', admin)
 app.use('/', check)
 app.use('/', university)
+app.use('/', student)
 
 app.post('/abi', (req, res) => {
     console.log(path.join(__dirname, '../build/contracts/BGV.json'))

@@ -42,7 +42,7 @@ contract BGV {
     address[] public universityAddresses;
 
     // Event to emit when a new student is added
-    event StudentAdded(address indexed studentAddress, string name, address indexed addedBy);
+    // event StudentAdded(address indexed studentAddress, string name, address indexed addedBy);
 
     // Event to emit when a new document is added to a student
     event DocumentAdded(address indexed studentAddress, string documentName, string hashValue, AccessType access);
@@ -60,7 +60,11 @@ contract BGV {
     }
 
     // Function to add a new student
-    function addStudent(string memory _name, address _studentAddress) public onlyLegitimateUniversity(msg.sender) {
+    // mapping(address => Student) public students;
+    address[] public studentAddresses; // Maintain a list of student addresses
+
+    // Function to add a new student
+    function addStudent(string memory _name, address _studentAddress) public {
         // Ensure the student does not already exist
         require(students[_studentAddress].studentAddress == address(0), "Student already exists");
 
@@ -70,9 +74,31 @@ contract BGV {
         newStudent.studentAddress = _studentAddress;
         newStudent.addedBy = msg.sender; // Set the university that added the student
 
+        // Add the student address to the list
+        studentAddresses.push(_studentAddress);
+
         // Emit an event to notify that a new student has been added
         emit StudentAdded(_studentAddress, _name, msg.sender);
     }
+
+    // Function to get all students' names
+    function getAllStudentNames() public view returns (string[] memory) {
+        string[] memory names = new string[](studentAddresses.length);
+
+        for (uint256 i = 0; i < studentAddresses.length; i++) {
+            names[i] = students[studentAddresses[i]].name;
+        }
+
+        return names;
+    }
+
+    // Function to get all students' addresses
+    function getAllStudentAddresses() public view returns (address[] memory) {
+        return studentAddresses;
+    }
+
+    // Event to emit when a new student is added
+    event StudentAdded(address indexed studentAddress, string name, address indexed addedBy);
 
     // Function to add a document to an existing student
     function addDocumentToStudent(address _studentAddress, string memory _documentName, string memory _hashValue, AccessType _access) public {
@@ -170,4 +196,24 @@ contract BGV {
         }
         return allUniversities;
     }
+
+    // mapping(address => Student) public students;
+
+    // // Function to get all students
+    // function getAllStudents() public view returns (Student[] memory) {
+    //     // Create an array to store details of all students
+    //     Student[] memory allStudents = new Student[](addressCount);
+
+    //     // Iterate over all student addresses
+    //     for (uint256 i = 0; i < addressCount; i++) {
+    //         // Get the student details
+    //         Student memory student = students[studentAddresses[i]];
+
+    //         // Store the student details in the array
+    //         allStudents[i] = student;
+    //     }
+
+    //     // Return the array containing details of all students
+    //     return allStudents;
+    // }
 }
