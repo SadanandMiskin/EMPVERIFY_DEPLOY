@@ -14,6 +14,7 @@
     <% student.documentHash.forEach((doc)=>{ %>
         <p><%= doc.fileName %></p>
         <p><%= doc.hash %></p>
+        <a href="http://127.0.0.1:8080/ipfs/<%=doc.hash%>">View</a>
     <% }) %>
     
 </body>

@@ -7,6 +7,7 @@ const contract = require('../controllers/contract');
 const router = express.Router() 
 const upload = multer();
 const { create } = require('ipfs-http-client');
+const { routerAuth } = require('../middleware/Auth');
 const hashMap = new Map()
 // async function createNode(){
 //     const {createHelia} = await import('helia')
@@ -53,7 +54,7 @@ router.post('/uploadToIPFS', upload.single('studentDocument'), async (req, res) 
 });
 
 
-router.get('/addStudent' , async(req,res)=>{
+router.get('/addStudent' ,routerAuth, async(req,res)=>{
     const signerAddress = req.session.account;
     console.log(req.session.account)
     console.log('Signer Address:', signerAddress);
@@ -122,7 +123,7 @@ router.post('/studentProfile/:address', async(req,res)=>{
 })
 
 
-router.get('/studentProfile' , async(req,res)=>{
+router.get('/studentProfile' ,routerAuth, async(req,res)=>{
     try {
         const studentAddress = req.query.address
         // console.log(typeof studentAddress)

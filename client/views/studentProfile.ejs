@@ -10,7 +10,11 @@
     <h3><%= studentDetails.studentName %></h3>
     <h3 id="studentAddress"><%= studentDetails.studentAddress %></h3>
     <img src="data:image/jpeg;base64,<%= studentDetails.profile.toString('base64') %>" alt="Student Image">
-
+    <% studentDetails.documentHash.forEach((doc)=>{ %>
+        <p><%= doc.fileName %></p>
+        <p><%= doc.hash %></p>
+        <a href="http://127.0.0.1:8080/ipfs/<%=doc.hash%>">View</a>
+    <% }) %>
     <form id="documentUploadForm" enctype="multipart/form-data">
         <input type="file" name="studentDocument">
         <button type="submit" id="docUpload">ADD</button>

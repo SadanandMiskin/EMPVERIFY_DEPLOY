@@ -3,6 +3,7 @@ const contract = require('./controllers/contract.js')
 const check = require('./routes/check.js')
 const university = require('./routes/university.js')
 const student = require('./routes/student.js')
+const verifier = require('./routes/verifier.js')
 
 require('dotenv').config()
 const express = require('express');
@@ -25,7 +26,10 @@ app.use(cookieParser())
 app.use(session({
     secret: 'your-secret-key',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        expires: 60000
+    }
 }));
 
 
@@ -46,6 +50,7 @@ app.use('/', admin)
 app.use('/', check)
 app.use('/', university)
 app.use('/', student)
+app.use('/',verifier)
 
 app.post('/abi', (req, res) => {
     console.log(path.join(__dirname, '../build/contracts/BGV.json'))

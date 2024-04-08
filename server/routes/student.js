@@ -1,8 +1,9 @@
 const express = require('express')
 const studentModel = require('../models/student')
+const { routerAuth } = require('../middleware/Auth')
 const router = express.Router()
 
-router.get('/student' , async(req,res)=>{
+router.get('/student' ,routerAuth, async(req,res)=>{
     
     try{
         // const student = studentModel.findOne({})

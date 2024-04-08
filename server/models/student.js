@@ -1,9 +1,37 @@
 const mongoose = require('mongoose')
 
+// const requests= mongoose.Schema({
+//     verifier: {
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: 'verifier',
+        
+//     },
+//     Auth: {
+//         type: Boolean,
+//         default: false
+
+//     }
+// })
 
 const docuHash = mongoose.Schema({
     fileName: String,
     hash: String
+})
+
+const verifierAccessDoc = mongoose.Schema({
+    verifier: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'verifier'
+    },
+    Auth: {
+        type:Boolean,
+        default: false
+    }
+})
+
+const requests = mongoose.Schema({
+    docuHash: docuHash,
+    verifiers: [verifierAccessDoc]
 })
 
 const studentSchema = mongoose.Schema({
@@ -15,7 +43,8 @@ const studentSchema = mongoose.Schema({
     studentName: String,
     studentAddress: String,
     profile: Buffer,
-    documentHash: [docuHash]
+    documentHash: [docuHash],
+    verifierList: [requests]
 })
 
 const studentModel = mongoose.model('studentModel' , studentSchema)
