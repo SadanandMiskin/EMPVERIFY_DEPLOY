@@ -217,7 +217,6 @@ contract BGV {
         return allUniversities;
     }
 
-<<<<<<< HEAD
      // Function to add a new verifier
     function addVerifier(string memory _organizationName) public onlyLegitimateVerifier(msg.sender) {
         
@@ -233,25 +232,4 @@ contract BGV {
         // Emit an event to notify that a new verifier has been added
         emit VerifierAdded(msg.sender, _organizationName);
     } 
-=======
-    // mapping(address => Student) public students;
-
-    // // Function to get all students
-    // function getAllStudents() public view returns (Student[] memory) {
-    //     // Create an array to store details of all students
-    //     Student[] memory allStudents = new Student[](addressCount);
-
-    //     // Iterate over all student addresses
-    //     for (uint256 i = 0; i < addressCount; i++) {
-    //         // Get the student details
-    //         Student memory student = students[studentAddresses[i]];
-
-    //         // Store the student details in the array
-    //         allStudents[i] = student;
-    //     }
-
-    //     // Return the array containing details of all students
-    //     return allStudents;
-    // }
->>>>>>> 8b1a45dbf42e640417e7184f8c9a8b5c4932c65b
 }
