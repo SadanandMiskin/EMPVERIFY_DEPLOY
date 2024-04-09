@@ -29,6 +29,12 @@ contract BGV {
         bool approvedByGovernment;
     }
 
+        // Struct to represent a verifier
+    struct Verifier {
+        string organizationName;
+        address verifierAddress;
+    }
+
     // Mapping to store students by their Ethereum address
     mapping(address => Student) public students;
 
@@ -38,8 +44,14 @@ contract BGV {
     // Mapping to store license numbers to prevent duplicates
     mapping(string => bool) public licenseNumbers;
 
+     // Mapping to store verifiers by their Ethereum address
+    mapping(address => Verifier) public verifiers;
+
     // Array to store university addresses
     address[] public universityAddresses;
+
+    // Array to store verifier addresses
+    address[] public verifierAddresses;
 
     // Event to emit when a new student is added
     event StudentAdded(address indexed studentAddress, string name, address indexed addedBy);
@@ -53,6 +65,14 @@ contract BGV {
     // Event to emit when document access type is changed
     event DocumentAccessChanged(address indexed studentAddress, string hashValue, AccessType newAccessType);
 
+     // Event to emit when a new verifier is added
+    event VerifierAdded(address indexed verifierAddress, string organizationName);
+
+    // Modifier to ensure only a legitimate verifier can add themselves
+    modifier onlyLegitimateVerifier(address _organizationAddress) {
+        require(verifiers[msg.sender].verifierAddress == address(0), "Verifier already exists");
+        _;
+    }
     // Modifier to ensure only a legitimate university can add a student
     modifier onlyLegitimateUniversity(address _universityAddress) {
         require(universities[_universityAddress].approvedByGovernment && bytes(universities[_universityAddress].licenseNumber).length > 0, "Only a legitimate university can add a student");
@@ -170,4 +190,20 @@ contract BGV {
         }
         return allUniversities;
     }
+
+     // Function to add a new verifier
+    function addVerifier(string memory _organizationName) public onlyLegitimateVerifier(msg.sender) {
+        
+        require(verifiers[msg.sender].verifierAddress == address(0), "Verifier with this address already exists");
+        // Create a new verifier
+        Verifier storage newVerifier = verifiers[msg.sender];
+        newVerifier.organizationName = _organizationName;
+        newVerifier.verifierAddress = msg.sender;
+
+        // Add verifier address to the array
+        verifierAddresses.push(msg.sender);
+
+        // Emit an event to notify that a new verifier has been added
+        emit VerifierAdded(msg.sender, _organizationName);
+    } 
 }
