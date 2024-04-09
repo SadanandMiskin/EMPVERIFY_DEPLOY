@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@helia/unixfs": "^3.0.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -22,6 +23,8 @@
     "ethers": "^5.7.2",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
+    "helia": "^4.1.0",
+    "ipfs-http-client": "^53.0.1",
     "mongoose": "^8.3.0",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.0",

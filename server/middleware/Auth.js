@@ -7,7 +7,15 @@ function setSignerAddress(req, res, next) {
     req.session.account = signerAddress;
     // console.log(req.address)
     next();
+} 
+
+function routerAuth(req,res,next) {
+    if(!req.session.account) {
+        return res.json({error: 'PLease login'})
+    }
+    else{
+        return next()
+    }
 }
 
-
-module.exports = {Auth, setSignerAddress}
+module.exports = {Auth, setSignerAddress, routerAuth}

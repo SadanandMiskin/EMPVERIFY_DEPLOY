@@ -51,7 +51,7 @@
 
 
 
-const MoodContractAddress = '0x145e48b5a9dee4CE9B2E7cDC60f6268DEcc6a0dB';
+const MoodContractAddress = '0x86a514e4840ea898D5c43384e5C76A763858e99F';
 let MoodContractABI;
 let MoodContract; // Declare MoodContract variable here
 
