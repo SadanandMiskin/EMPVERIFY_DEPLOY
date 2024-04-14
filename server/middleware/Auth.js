@@ -1,3 +1,6 @@
+const universityModel = require("../models/university");
+const verifierModel = require("../models/verifier");
+
 function Auth(req,res,next) {
    
 }
@@ -9,13 +12,37 @@ function setSignerAddress(req, res, next) {
     next();
 } 
 
+async function isUniversity(req,res,next){
+try {
+    const university = await universityModel.findOne({universityAddress: req.session.account})
+    if(!university) {
+        return res.json({message: 'please login as University'})
+    }
+    next()
+} catch (error) {
+    console.error(error)
+}
+}
+
+async function isVerifier(req,res,next){
+    try {
+    const verifier = await verifierModel.findOne({email: req.session.account})
+    if(!verifier) {
+        res.json({message: 'Login as Verifier first'})
+    }
+    next()
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 function routerAuth(req,res,next) {
     if(!req.session.account) {
-        return res.json({error: 'PLease login'})
+        return res.redirect('/')
     }
     else{
         return next()
     }
 }
 
-module.exports = {Auth, setSignerAddress, routerAuth}
+module.exports = {Auth, setSignerAddress, routerAuth, isUniversity, isVerifier}

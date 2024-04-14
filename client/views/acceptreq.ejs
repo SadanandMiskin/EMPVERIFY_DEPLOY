@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requested Documents</title>
+</head>
+<body>
+    <h1>Requested Documents</h1>
+    <!-- <% const studentId = 'YOUR_STUDENT_ID'; %> -->
+    <% const relevantVerifiers = verifierList.filter(verifier => verifier.requestedDocs.some(doc => doc.studId == studId)); %>
+    <% relevantVerifiers.forEach(verifier => { %>
+        <% verifier.requestedDocs.forEach(doc => { %>
+            <div>
+                
+                <p><strong>Name:</strong> <%= verifier.name %></p>
+                <p><strong>Email:</strong> <%= verifier.email %></p>
+                <p><strong>Document Name:</strong> <%= doc.documentName %></p>
+                <% if(doc.Auth == false) { %> 
+                
+                    <form action="/accept-request?verifier=<%= verifier._id %>&doc=<%= doc.hash %>" method="POST">
+                        <button type="submit">Accept</button>
+                    </form>
+                    <hr>
+                <!-- <%   %> -->
+                <% }else { %> 
+                    <form action="/revoke-request?verifier=<%= verifier._id %>&doc=<%= doc.hash %>" method="POST">
+                        <button type="submit">Revoke</button>
+                    </form>
+                <% } %>
+
+               
+                
+            </div>
+        <% }) %>
+    <% }) %>
+</body>
+</html>

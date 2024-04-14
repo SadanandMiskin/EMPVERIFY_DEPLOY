@@ -6,11 +6,46 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="post" action="/register"> 
-        <label>Company Name<input type="text" id="companyName"></label>
-        <label>Your Email <input type="email" id="companyEmail"></label>
-        <label>Password <input type="text" id="companyPassword"></label>
-        <button type="submit">Register</button>
+    <form id="registerForm" enctype="multipart/form-data"> 
+        <label>Company Name<input type="text" id="companyName" name="companyName"></label>
+        <label>Your Email <input type="email" id="companyEmail" name="companyEmail"></label>
+        <label>Password <input type="password" id="companyPassword" name="companyPassword"></label> <!-- Changed type to password -->
+        <button type="submit" id="submit">Register</button>
+        <a href="/login">Login</a>
     </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js" integrity="sha512-FDcVY+g7vc5CXANbrTSg1K5qLyriCsGDYCE02Li1tXEYdNQPvLPHNE+rT2Mjei8N7fZbe0WLhw27j2SrGRpdMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../js/verifierRegister.js"></script>
+    <!-- <script>
+        document.getElementById('registerForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const name = document.getElementById('companyName').value;
+            const email = document.getElementById('companyEmail').value;
+            const password = document.getElementById('companyPassword').value;
+
+            try {
+                const register = await fetch('/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json' // Specify JSON content type
+                    },
+                    body: JSON.stringify({ // Convert data to JSON string
+                        name,
+                        email,
+                        password
+                    })
+                });
+
+                const res = await register.json();
+                console.log(res);
+
+                window.location.href = res
+                
+            } catch (error) {
+                console.error(error);
+            }
+        });
+    </script> -->
+    <!-- <script src="../js/"></script> -->
 </body>
 </html>

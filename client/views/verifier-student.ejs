@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h3><%= studentDetails.studentName %></h3>
+  <h3 id="studentAddress"><%= studentDetails.studentAddress %></h3>
+  <img src="data:image/jpeg;base64,<%= studentDetails.profile.toString('base64') %>" alt="Student Image">
+  <% studentDetails.documentHash.forEach((doc) => { %>
+    <p><%= doc.fileName %></p>
+    <% const exists = verifierD.requestedDocs.some((item) => item.hash === doc.hash); %>
+    <% const accepted = verifierD.requestedDocs.some((item) => item.Auth === true && item.hash === doc.hash); %>
+    <% if (exists) { %>
+      <% if (accepted) { %>
+        <a href="#" onclick="fetchAndDisplayDocument('<%= doc.hash %>')">
+          <p>View Document</p>
+        </a>
+      <% } else { %>
+        <p>Already requested</p>
+      <% } %>
+    <% } else { %>
+      <form action="/request-doc/?docId=<%= doc._id %>&studId=<%= studentDetails._id %>" method="post">
+        <button type="submit">Request</button>
+      </form>
+    <% } %>
+  <% }) %>
+
+  <script>
+    function fetchAndDisplayDocument(ipfsHash) {
+      // Replace with your IPFS gateway URL (e.g., https://ipfs.io/ipfs/)
+      const ipfsGatewayUrl = 'http://127.0.0.1:8080/ipfs';
+
+      fetch(`${ipfsGatewayUrl}/${ipfsHash}`)
+        .then(response => response.blob())
+        .then(blob => {
+          const url = URL.createObjectURL(blob);
+          window.open(url, '_blank');
+        })
+        .catch(error => {
+          console.error('Error fetching document:', error);
+          // Handle errors gracefully (e.g., display an error message to the user)
+        });
+    }
+  </script>
+</body>
+</html>

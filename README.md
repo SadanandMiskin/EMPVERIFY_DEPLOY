@@ -1,7 +1,7 @@
-1.clone/fork the repo
-2.make sure ganache is turned on
-3.npm init
-4.truffle compile
-5.truffle migrate - to deploy
-6. run the server.js file to run the server
-7. run the index.html file using live server
+1. clone/fork the repo
+2. make sure ganache is turned on and mongo
+3. npm run compile to compile & deploy contract
+4. npm run dev
+5. Take the contract address and sender address(admin address) and update in .env, ensure to use mongodb
+6. Update the contract address in client/js/script.js line np. 54
+7. Runs in localhost:3000

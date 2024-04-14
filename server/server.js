@@ -3,6 +3,7 @@ const contract = require('./controllers/contract.js')
 const check = require('./routes/check.js')
 const university = require('./routes/university.js')
 const student = require('./routes/student.js')
+const verifierHome = require('./routes/verifierRegistration.js')
 const verifier = require('./routes/verifier.js')
 
 require('dotenv').config()
@@ -12,6 +13,7 @@ const fs = require('fs');
 const path = require('path')
 const cors = require("cors");
 const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
 const session  =require('express-session')
 const { db } = require('./config/db.js')
 
@@ -24,7 +26,7 @@ const app = express();
 app.use(cors());
 app.use(cookieParser())
 app.use(session({
-    secret: 'your-secret-key',
+    secret: 'sdjadkajlsbdhvadbsbandnsjjakdnksnnnknsfjjddsnj',
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -38,7 +40,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../', 'client', 'views'));
 app.use(express.static(path.join(__dirname, '../', 'client')));
 app.use(express.json())
-
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // Load the contract instance
 // const web3 = new Web3(new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545')); // Change to the URL of your Ethereum node
@@ -50,7 +52,8 @@ app.use('/', admin)
 app.use('/', check)
 app.use('/', university)
 app.use('/', student)
-app.use('/',verifier)
+app.use('/',verifierHome)
+app.use('/' , verifier)
 
 app.post('/abi', (req, res) => {
     console.log(path.join(__dirname, '../build/contracts/BGV.json'))
