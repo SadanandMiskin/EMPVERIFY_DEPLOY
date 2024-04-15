@@ -62,7 +62,7 @@ app.post('/abi', (req, res) => {
     const contractAddress = process.env.CONTRACT_ADDRESS
     res.json({
         abi: contractABI,
-        contractAddress
+        contractAddress: contractAddress
     })
 })
 
