@@ -51,8 +51,8 @@
 
 
 
-// const MoodContractAddress = '0x23994bf12EEcF64A053E4395a25F1e59aE15B0d2';
-let MoodContractAddress
+const MoodContractAddress = '0x1339ffC950b477c9EAFf434c7116789DEE313784';
+// let MoodContractAddress
 let MoodContractABI;
 let MoodContract; // Declare MoodContract variable here
 
@@ -63,7 +63,7 @@ async function fetchABI() {
         });
         const { abi, contractAddress } = await response.json();
         MoodContractABI = abi;
-        MoodContractAddress = contractAddress
+        // MoodContractAddress = contractAddress
     } catch (error) {
         console.error('Error fetching ABI:', error);
     }
