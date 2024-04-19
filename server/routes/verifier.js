@@ -7,21 +7,36 @@ const {
 const verifierModel = require('../models/verifier')
 const router = express.Router()
 
+var studentList = null
 
 router.get('/verifierHome', isVerifier, async (req, res) => {
-
+    var std = []
     try {
-        const studentsList = await studentModel.find()
+        const student = await studentModel.find()
         const verifier = await verifierModel.findOne({
             email: req.session.account
         })
-        res.render('verifier', {
-            studentsList: studentsList,
-            verifier: verifier
-        })
+        // res.render('verifier', {
+        //     studentsList: studentsList,
+        //     verifier: verifier
+        // })
+        
+        console.log(studentList)
+        if(studentList == null) {
+            return res.render('verifier-search')
+        }
+        else {
+            
+            // std.push(studentList)
+            res.render('verifier' , {studentsList: [studentList], verifier: verifier})
+            studentList=null
+        }
+        
     } catch (error) {
         console.error(error)
     }
+
+    
 })
 
 router.get('/verifier-viewing-student-docs',isVerifier, async (req, res) => {
@@ -82,7 +97,7 @@ router.post('/request-doc' ,isVerifier, async(req,res)=>{
         }
         verifier.requestedDocs.push(docuHash)
         await verifier.save()
-        res.redirect('/verifier-viewing-student-docs')
+        res.redirect(`/verifier-viewing-student-docs?address=${student.studentAddress}`)
        }
        else{
         console.log('already requested')
@@ -188,6 +203,17 @@ router.post('/request-doc' ,isVerifier, async(req,res)=>{
 //     }
 // });
 
+
+router.post('/search-student',isVerifier ,async(req,res)=>{
+
+    const {studentAddress} = req.body
+    try {
+       studentList =  await studentModel.findOne({studentAddress: studentAddress})
+       res.redirect('/verifierHome')
+    } catch (error) {
+        console.error(error)
+    }
+})
 
 
 
