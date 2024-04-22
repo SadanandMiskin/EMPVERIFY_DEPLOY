@@ -23,7 +23,11 @@ router.get('/verifierHome', isVerifier, async (req, res) => {
         
         console.log(studentList)
         if(studentList == null) {
+<<<<<<< Updated upstream
             return res.render('verifier-search')
+=======
+            return res.render('verifier-search', {verifier: verifier.name})
+>>>>>>> Stashed changes
         }
         else {
             

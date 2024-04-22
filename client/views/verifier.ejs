@@ -1,9 +1,16 @@
+<<<<<<< Updated upstream
+=======
+
+
+
+>>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+<<<<<<< Updated upstream
 </head>
 <body>
     <ul id="student-list">
@@ -29,5 +36,54 @@
             </li>
         <% }) %>
     </ul>
+=======
+    <link rel="stylesheet" href="../adminstyle.css">
+</head>
+<body>
+    <% studentsList.forEach(function(student){ %>
+    <div class="card col-lg-12 my-5 mx-5 px-3" style="width: 40rem; height: 50rem; border: 2px solid rgb(46, 178, 244); background-color:black">
+        <div class="row py-5 px-3 h-100 " style="border-bottom: 2px solid rgb(46,178,244);">
+            <% if (student.profile) { %>
+                <img src="data:image/jpeg;base64,<%= student.profile.toString('base64') %>" class="card-img-center object-fit-contain rounded my-4 " alt="..." height="140px" width="180px">
+                <% } %>
+            </div>
+        <div class="row h-100 p-4">
+            <div class="card-body p-2" style="text-align: center;">
+                <h5 class="card-title text-bright fs-2 fw-bold"  style="color: yellow;">Student Details</h5>
+                <div>
+                    <p class="card-text text-bright d-inline fs-4"><%= student.studentName %> </p>
+                    <!-- <p class="card-text text-bright d-inline">javeed</p> -->
+                </div>
+                <div>
+                    <p class="card-text text-bright d-inline fs-4"><%= student.studentAddress %> </p>
+                    <!-- <p class="card-text text-bright d-inline">##12452562</p> -->
+                </div>
+                <br>
+                <h5 class="card-title text-bright fs-2 fw-bold mt-2 mb-0" align="center" style="color: yellow;">Added by</h5>
+              <div class="row pb-2 px-2">
+                <div class="col-lg-3 py-3">
+                    <% if (student.university.logo) { %>
+                        <img src="data:image/jpeg;base64,<%= student.university.logo.toString('base64') %>" class="card-img-center object-fit-contain rounded my-3 " alt="..." height="50px" width="90px">
+                        <% } %>
+                </div>
+                <div class="col-lg-9 py-4" align="left">
+                    <div>
+                        <p class="card-text text-bright d-inline fs-4">University Name </p>
+                        <!-- <p class="card-text text-bright d-inline">Nitte</p> -->
+                    </div>
+                    <div>
+                        <p class="card-text text-bright d-inline fs-4"><%= student.university.universityAddress %> </p>
+                        <!-- <p class="card-text text-bright d-inline">##12452562</p> -->
+                    </div>
+                </div>
+              </div>
+              <div class="col-lg-12  py-1 mt-1" align="center">
+                <a href="/verifier-viewing-student-docs?address=<%= student.studentAddress %>"> <button type="button" class="btn btn-lg  fw-bolder form-btn py-2 px-5 mt-4" >View</button></a>
+            </div>
+            </div>
+        </div>
+      </div>
+      <% }) %>
+>>>>>>> Stashed changes
 </body>
 </html>
