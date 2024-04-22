@@ -1,42 +1,12 @@
-<<<<<<< Updated upstream
-=======
 
 
 
->>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-<<<<<<< Updated upstream
-</head>
-<body>
-    <ul id="student-list">
-        <h1>Hello <%= verifier.name %></h1>
-        <% studentsList.forEach(function(student){ %>
-            <li>
-                <h2>Student Name: <%= student.studentName %></h2>
-                <p>Student Address: <%= student.studentAddress %></p>
-                <% if (student.profile) { %>
-                    <img src="data:image/jpeg;base64,<%= student.profile.toString('base64') %>" alt="Student Image">
-                <% } %>
-                <h3>University Details:</h3>
-                <ul>
-                    <li>
-                        <p>University ID: <%= student.university._id %></p>
-                        <p>University Address: <%= student.university.universityAddress %></p>
-                        <% if (student.university.logo) { %>
-                            <img src="data:image/jpeg;base64,<%= student.university.logo.toString('base64') %>" alt="University Logo">
-                        <% } %>
-                    </li>
-                </ul>
-                <a href="/verifier-viewing-student-docs?address=<%= student.studentAddress %>">View</a>
-            </li>
-        <% }) %>
-    </ul>
-=======
     <link rel="stylesheet" href="../adminstyle.css">
 </head>
 <body>
@@ -84,6 +54,5 @@
         </div>
       </div>
       <% }) %>
->>>>>>> Stashed changes
 </body>
 </html>
