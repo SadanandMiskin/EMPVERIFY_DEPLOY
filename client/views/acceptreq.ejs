@@ -1,38 +1,47 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Requested Documents</title>
+    <title>Accept Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=American+Captain&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../adminstyle.css">
 </head>
 <body>
-    <h1>Requested Documents</h1>
-    <!-- <% const studentId = 'YOUR_STUDENT_ID'; %> -->
+    <h5 class="text-bright fs-2 fw-bolder pb-3" style="color: yellow;">Requested Documents</h5>
     <% const relevantVerifiers = verifierList.filter(verifier => verifier.requestedDocs.some(doc => doc.studId == studId)); %>
     <% relevantVerifiers.forEach(verifier => { %>
         <% verifier.requestedDocs.forEach(doc => { %>
-            <div>
-                
-                <p><strong>Name:</strong> <%= verifier.name %></p>
-                <p><strong>Email:</strong> <%= verifier.email %></p>
-                <p><strong>Document Name:</strong> <%= doc.documentName %></p>
-                <% if(doc.Auth == false) { %> 
-                
-                    <form action="/accept-request?verifier=<%= verifier._id %>&doc=<%= doc.hash %>" method="POST">
-                        <button type="submit">Accept</button>
-                    </form>
-                    <hr>
-                <!-- <%   %> -->
-                <% }else { %> 
-                    <form action="/revoke-request?verifier=<%= verifier._id %>&doc=<%= doc.hash %>" method="POST">
-                        <button type="submit">Revoke</button>
-                    </form>
-                <% } %>
-
-               
-                
+           
+       
+    <div class="row py-4 px-3 border rounded m-5 " style="width: 500px; height: 289px">
+    
+        <div class="d-flex">
+            
+            <p id="requestedName" class="text-bright fs-4  ps-2"><%= verifier.name %></p>
+        </div>
+        <div class="d-flex">
+           
+            <p id="requestedEmail" class="text-bright fs-4  ps-2"><%= verifier.email %></p>
+        </div>
+        <div class="d-flex">
+          
+            <p id="requestedDocName" class="text-bright fs-4  ps-2"><%= doc.documentName %></p>
+        </div>
+        <% if(doc.Auth == false) { %> 
+            <form action="/accept-request?verifier=<%= verifier._id %>&doc=<%= doc.hash %>" method="POST">
+            <div class="col-lg-5 pt-0 ">
+            <button class="btn btn-lg  fw-bolder form-btn py-1 px-4 mt-5" type="submit">Accept</button>
+            <% }else { %> 
+                <form action="/revoke-request?verifier=<%= verifier._id %>&doc=<%= doc.hash %>" method="POST">
+                    <button type="submit" class="btn btn-lg  fw-bolder form-btn py-1 px-4 mt-5">Revoke</button>
+                </form>
+            <% } %>
             </div>
-        <% }) %>
+    </div>
+    <% }) %>
     <% }) %>
 </body>
 </html>

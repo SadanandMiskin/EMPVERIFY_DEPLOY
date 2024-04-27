@@ -64,7 +64,7 @@ router.post('/revoke-request' , routerAuth , async(req,res)=>{
             { new: true }
         )
         console.log('fdeleted')
-        res.redirect('/accept-request')
+        res.redirect('/student')
     } catch (error) {
         console.error(error)
     }

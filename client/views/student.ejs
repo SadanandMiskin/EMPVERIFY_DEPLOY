@@ -7,17 +7,89 @@
 </head>
 <body>
 
-    <a href="/accept-request"><p>Check Requests</p></a>
-    <h1><%= student.studentName %></h1>
-    <h2><%= student.studentAddress %></h2>
-    <img src="data:image/jpeg;base64,<%= student.profile.toString('base64') %>" alt="Student Image">
+    
+    <h1></h1>
+    <h2></h2>
+    <img 
 
     <h2>Documents: </h2>
-    <% student.documentHash.forEach((doc)=>{ %>
-        <p><%= doc.fileName %></p>
-        <p><%= doc.hash %></p>
-        <a href="http://127.0.0.1:8080/ipfs/<%=doc.hash%>">View</a>
-    <% }) %>
+   
+        <p></p>
+        <p></p>
+        
+  
     
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=American+Captain&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../adminstyle.css">
+
+    <style>
+        .studentProfileDocuments li{
+            background-color: black;
+            color: white;
+            padding: 10px ;
+        }
+        .studentProfileDocuments ul{
+            padding: 3px 0;
+            margin: 5px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="card row my-5 mx-5 px-4 " style=" width:75rem; border: 2px solid rgb(46, 178, 244); background-color:black">
+        <div class="p-4">
+            <h5 class="card-title text-bright fs-2 fw-bold " style="color: yellow;">Student Details</h5>
+        </div>
+        <div class="col-lg-3  px-4 h-100">
+            <img src="data:image/jpeg;base64,<%= student.profile.toString('base64') %>" alt="Student Image" class="card-img-center object-fit-contain rounded  " height="90px" width="110px">
+        </div>
+        <div class="col-lg-9 h-100 p-4 ">
+            <div class="card-body p-0" style="text-align: left;">
+                <div class="py-2"> 
+                    <p class="card-text text-bright d-inline fs-4"><%= student.studentName %></p>
+                </div>
+                <div class="py-2">
+                    <p class="card-text text-bright d-inline fs-4"><%= student.studentAddress %></p>
+                </div>
+                <div class="studentProfileDocuments ">
+                    <p class="card-text text-bright d-inline fs-4">Documents:</p>
+                    <% student.documentHash.forEach((doc)=>{ %>
+                    <ul class="list-group list-group-horizontal">
+                       
+                        <!-- <li class="list-group-item ">{document no 1}</li> -->
+                        <li class="list-group-item "><%= doc.fileName %></li>
+                        <!-- <li class="list-group-item "><%= doc.hash %></li> -->
+                        <li class="list-group-item ">
+                        <div class="col-lg-5 float-end">
+                            <a href="http://127.0.0.1:8080/ipfs/<%=doc.hash%>"> <button type="button" class="btn btn-lg  fw-bolder form-btn py-1 px-4  float-end" >View</button></a>      
+                        </div>
+                        </li>
+                        
+                    </ul>
+                    <% }) %>
+                </div>
+                <div class="row mt-4 w-100">
+                    <div class="col-lg-11  d-flex justify-content-between align-items-center pe-3">
+                    <label for="checkRequest" class="fs-4">Check Request Status by verifier</label>
+                    <a href="/accept-request"> <button type="button" class="btn btn-lg  fw-bolder form-btn py-1 px-3  float-end" > View Requests</button></a>   
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    
+
+
+     
 </body>
 </html>

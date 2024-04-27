@@ -207,8 +207,9 @@ router.post('/request-doc' ,isVerifier, async(req,res)=>{
 router.post('/search-student',isVerifier ,async(req,res)=>{
 
     const {studentAddress} = req.body
+    const std = studentAddress.toLowerCase()
     try {
-       studentList =  await studentModel.findOne({studentAddress: studentAddress})
+       studentList =  await studentModel.findOne({studentAddress: std})
        res.redirect('/verifierHome')
     } catch (error) {
         console.error(error)

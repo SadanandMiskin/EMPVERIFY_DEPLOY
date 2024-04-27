@@ -3,22 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Student Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=American+Captain&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./adminstyle.css">
+
+    <style>
+        .studentProfileDocuments li{
+            background-color: black;
+            color: white;
+            padding: 10px ;
+        }
+        .studentProfileDocuments ul{
+            padding: 3px 0;
+            margin: 5px 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <!-- <%= studentDetails %> -->
-    <h3><%= studentDetails.studentName %></h3>
-    <h3 id="studentAddress"><%= studentDetails.studentAddress %></h3>
-    <img src="data:image/jpeg;base64,<%= studentDetails.profile.toString('base64') %>" alt="Student Image">
-    <% studentDetails.documentHash.forEach((doc)=>{ %>
-        <p><%= doc.fileName %></p>
-        <p><%= doc.hash %></p>
-        <a href="http://127.0.0.1:8080/ipfs/<%=doc.hash%>">View</a>
-    <% }) %>
-    <form id="documentUploadForm" enctype="multipart/form-data">
-        <input type="file" name="studentDocument">
-        <button type="submit" id="docUpload">ADD</button>
-    </form>
+    <div class="card row my-5 mx-5 px-4 " style=" width:75rem; border: 2px solid rgb(46, 178, 244); background-color:black">
+        <div class="p-4">
+            <h5 class="card-title text-bright fs-2 fw-bold " style="color: yellow;">Student Profile</h5>
+        </div>
+        <div class="col-lg-3  px-4 h-100">
+            <img src="data:image/jpeg;base64,<%= studentDetails.profile.toString('base64') %>" alt="Student Image" class="card-img-center object-fit-contain rounded  "  height="90px" width="110px">
+        </div>
+        <div class="col-lg-9 h-100 p-4 ">
+            <div class="card-body p-0" style="text-align: left;">
+                <div class="py-2"> 
+                    <p class="card-text text-bright d-inline fs-4"><%= studentDetails.studentName %></p>
+                </div>
+                <div class="py-2">
+                    <p class="card-text text-bright d-inline fs-4" id="studentAddress"><%= studentDetails.studentAddress %></p>
+                </div>
+                <div class="studentProfileDocuments ">
+                    <!-- <p class="card-text text-bright d-inline fs-4">Documents:</p> -->
+                    <% studentDetails.documentHash.forEach((doc)=>{ %>
+                       
+                        
+                   
+                    <ul class="list-group list-group-horizontal">
+                        <!-- <li class="list-group-item ">{document no 1}</li> -->
+                        <li class="list-group-item "><%= doc.fileName %></li>
+                      
+                        <li class="list-group-item ">
+                        <div class="col-lg-5 float-end">
+                            <a href="http://127.0.0.1:8080/ipfs/<%=doc.hash%>"><button type="button" class="btn btn-lg  fw-bolder form-btn py-1 px-4  float-end" >View</button></a> 
+                        </div>
+                        </li>
+                    </ul>
+                    <% }) %>
+                </div>
+                <div class="row mt-4 w-100">
+
+                    <div class="col-lg-3 pt-0 float-start pe-3">
+                        <form id="documentUploadForm" enctype="multipart/form-data">
+                            <input type="file" name="studentDocument">
+                            <br>
+                            <button type="submit" id="docUpload" class="btn btn-lg  fw-bolder form-btn py-1 px-3  float-end">click to Add</button>
+                        </form>
+                        
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    
+
+
+     
+
+
+
+
+
+
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js" integrity="sha512-FDcVY+g7vc5CXANbrTSg1K5qLyriCsGDYCE02Li1tXEYdNQPvLPHNE+rT2Mjei8N7fZbe0WLhw27j2SrGRpdMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/ipfs-http-client/dist/index.min.js"></script>
     <script>

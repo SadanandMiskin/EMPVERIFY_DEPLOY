@@ -24,7 +24,7 @@ router.get('/addUniversity', async(req,res)=>{
           // res.json(allLogo)
           res.render('admin', {mongoDetails: allLogo , contractDetails: contractDetails});
       } else {
-          res.json({message: 'You arent admin'});
+          return res.redirect('/')
       }
     } catch (error) {
       console.error(error)

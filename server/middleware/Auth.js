@@ -16,7 +16,7 @@ async function isUniversity(req,res,next){
 try {
     const university = await universityModel.findOne({universityAddress: req.session.account})
     if(!university) {
-        return res.json({message: 'please login as University'})
+        return res.redirect('/')
     }
     next()
 } catch (error) {
@@ -28,7 +28,7 @@ async function isVerifier(req,res,next){
     try {
     const verifier = await verifierModel.findOne({email: req.session.account})
     if(!verifier) {
-        res.json({message: 'Login as Verifier first'})
+        return res.redirect('/login')
     }
     next()
     } catch (error) {
