@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,28 +6,91 @@
   <title>Document</title>
 </head>
 <body>
-  <h3><%= studentDetails.studentName %></h3>
-  <h3 id="studentAddress"><%= studentDetails.studentAddress %></h3>
-  <img src="data:image/jpeg;base64,<%= studentDetails.profile.toString('base64') %>" alt="Student Image">
-  <% studentDetails.documentHash.forEach((doc) => { %>
-    <p><%= doc.fileName %></p>
-    <% const exists = verifierD.requestedDocs.some((item) => item.hash === doc.hash); %>
-    <% const accepted = verifierD.requestedDocs.some((item) => item.Auth === true && item.hash === doc.hash); %>
-    <% if (exists) { %>
-      <% if (accepted) { %>
-        <a href="#" onclick="fetchAndDisplayDocument('<%= doc.hash %>')">
+  <h3></h3>
+  <h3 id="studentAddress">/h3>
+  <img  alt="Student Image">
+  
+    <p></p>
+   
+       
           <p>View Document</p>
         </a>
-      <% } else { %>
-        <p>Already requested</p>
-      <% } %>
-    <% } else { %>
-      <form action="/request-doc/?docId=<%= doc._id %>&studId=<%= studentDetails._id %>" method="post">
-        <button type="submit">Request</button>
-      </form>
-    <% } %>
-  <% }) %>
+      
+  
+     
+  
 
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=American+Captain&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../adminstyle.css">
+
+    <style>
+        .studentProfileDocuments li{
+            background-color: black;
+            color: white;
+            padding: 9px ;
+        }
+        .studentProfileDocuments ul{
+            padding: 3px 0;
+            margin: 5px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="card row my-5 mx-5 px-2 " style="width: 90rem; height: 44rem; border: 2px solid rgb(46, 178, 244); background-color:black">
+        <div class="col-lg-3 py-5 px-4 h-100" style="border-right:2px solid rgb(46, 178, 244)">
+            <img src="data:image/jpeg;base64,<%= studentDetails.profile.toString('base64') %>" class="card-img-center object-fit-contain rounded my-3 " alt="..." height="90px" width="110px">
+        </div>
+        <div class="col-lg-9 h-100 p-4 ">
+            <div class="card-body p-0" style="text-align: left;">
+                <h5 class="card-title text-bright fs-2 fw-bold" style="color: yellow;">Request Details</h5>
+                <div>
+                    <p class="card-text text-bright d-inline fs-4"><%= studentDetails.studentName %></p>
+                </div>
+                <div>
+                    <p class="card-text text-bright d-inline fs-4"><%= studentDetails.studentAddress %></p>
+                </div>
+                <div class="studentProfileDocuments ">
+                    <p class="card-text text-bright d-inline fs-4">Documents:</p>
+                    <% studentDetails.documentHash.forEach((doc) => { %>
+                    <ul class="list-group list-group-horizontal">
+                        <!-- <li class="list-group-item ">{document no 1}</li> -->
+                        <li class="list-group-item "><%= doc.fileName %></li>
+                        <% const exists = verifierD.requestedDocs.some((item) => item.hash === doc.hash); %>
+                        <% const accepted = verifierD.requestedDocs.some((item) => item.Auth === true && item.hash === doc.hash); %>
+                        <% if (exists) { %>
+                          <% if (accepted) { %>
+                        <li class="list-group-item ">
+                        <div class="col-lg-5 float-end">
+                          <a href="#" onclick="fetchAndDisplayDocument('<%= doc.hash %>')"><button type="button" class="btn btn-lg  fw-bolder form-btn py-1 px-4  float-end" >View Document</button></a>   
+                        </div>
+                        </li>
+                        <% } else { %>
+                          <p>Already requested</p>
+                        <% } %>
+                        <% } else { %>
+                          <form action="/request-doc/?docId=<%= doc._id %>&studId=<%= studentDetails._id %>" method="post">
+                            <button type="submit" class="btn btn-lg  fw-bolder form-btn py-1 px-4  float-end">Request</button>
+                          </form>
+                          <% } %>
+                         
+                    </ul>
+                    <% }) %>
+                    </div>
+            </div>
+        </div>
+      </div>
+      
   <script>
     function fetchAndDisplayDocument(ipfsHash) {
       // Replace with your IPFS gateway URL (e.g., https://ipfs.io/ipfs/)

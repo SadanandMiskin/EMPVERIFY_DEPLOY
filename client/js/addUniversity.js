@@ -128,7 +128,7 @@ document.getElementById('submit').addEventListener('click' ,async(event) => {
         const universityLicenseNumber =  document.getElementById('universityLisence').value;
         var approvedByGov = document.getElementById('universityApprove').value;
         approvedByGov = String(approvedByGov).toLowerCase() === 'true'
-
+        console.log(universityName)
         const res = await contractInstanceCall.addUniversity(universityName, universityWalletAddress, universityLicenseNumber, approvedByGov)
         console.log(res)
 
@@ -137,7 +137,7 @@ document.getElementById('submit').addEventListener('click' ,async(event) => {
         // })
         const form = document.getElementById('universityForm');
         const formData = new FormData(form);
-
+        console.log(formData)
         const response = await fetch('/addUniversity', {
             method: 'POST',
             body: formData

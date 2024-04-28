@@ -40,7 +40,7 @@ router.post('/check', setSignerAddress, async(req, res) => {
          
     } catch (err) {
         console.error(err);
-        return res.status(500).json({ error: 'Internal server error' });
+        return res.json({redirectTo: '/', message: 'Not authorized, Contact Admin or your Organization to add you :)'})
     }
 });
 

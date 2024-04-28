@@ -11,7 +11,7 @@
 </head>
 <body>
     <% studentsList.forEach(function(student){ %>
-    <div class="card col-lg-12 my-5 mx-5 px-3" style="width: 40rem; height: 50rem; border: 2px solid rgb(46, 178, 244); background-color:black">
+    <div class="card col-lg-12 my-5 mx-5 px-3" style="width: 90rem; height: 50rem; border: 2px solid rgb(46, 178, 244); background-color:black">
         <div class="row py-5 px-3 h-100 " style="border-bottom: 2px solid rgb(46,178,244);">
             <% if (student.profile) { %>
                 <img src="data:image/jpeg;base64,<%= student.profile.toString('base64') %>" class="card-img-center object-fit-contain rounded my-4 " alt="..." height="140px" width="180px">
@@ -38,7 +38,7 @@
                 </div>
                 <div class="col-lg-9 py-4" align="left">
                     <div>
-                        <p class="card-text text-bright d-inline fs-4">University Name </p>
+                        <p class="card-text text-bright d-inline fs-4"><%= student.university.universityName %> </p>
                         <!-- <p class="card-text text-bright d-inline">Nitte</p> -->
                     </div>
                     <div>

@@ -74,14 +74,18 @@ document.getElementById('submit').addEventListener('click' ,async(event)=>{
 // formData.append('companyName', companyName);
 // formData.append('companyEmail', companyEmail);
 // formData.append('companyPassword', companyPassword);
-            const studentAdd = await fetch('/register' , {
-                method:'POST',
-                body: formData
-                   
-                
-    
-            })
+            
         const res = await contractInstanceCall.addVerifier(companyName)
+        
+
+        
+        const studentAdd = await fetch('/register' , {
+            method:'POST',
+            body: formData
+               
+            
+
+        })
         // const universityAddress = res.from
         
         console.log('added verifier' , studentAdd)
@@ -91,6 +95,8 @@ document.getElementById('submit').addEventListener('click' ,async(event)=>{
     // }
     // }
      catch (error) {
+        document.getElementById('hhhh').style.backgroundColor = 'red'
+        document.getElementById('hhhh').textContent = 'Already Exists with this Meta Mask Account'
         console.error(error)
     }
 })

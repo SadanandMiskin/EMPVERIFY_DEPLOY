@@ -209,7 +209,7 @@ router.post('/search-student',isVerifier ,async(req,res)=>{
     const {studentAddress} = req.body
     const std = studentAddress.toLowerCase()
     try {
-       studentList =  await studentModel.findOne({studentAddress: std})
+       studentList =  await studentModel.findOne({studentAddress: std}).populate('university')
        res.redirect('/verifierHome')
     } catch (error) {
         console.error(error)
