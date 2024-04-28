@@ -30,7 +30,7 @@ router.post('/register',upload.none(), async (req, res) => {
     try {
         const existingVerifier = await verifierModel.findOne({ email: companyEmail });
         if (existingVerifier) {
-            return res.status(400).json({ error: 'Verifier with this email already exists' });
+            return res.status(400).redirect('/register');
         }
 
         const hash = await bcrypt.hash(companyPassword, salt);
@@ -43,7 +43,7 @@ router.post('/register',upload.none(), async (req, res) => {
         res.json('/login');
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).redirect('/register');
     }
 });
 
@@ -53,18 +53,18 @@ router.post('/login', async (req, res) => {
     try {
         const verifier = await verifierModel.findOne({ email: email });
         if (!verifier) {
-            return res.status(400).json({ error: 'no user' });
+            return res.status(400).redirect('/login');
         }
 
         const match = await bcrypt.compare(password, verifier.password);
         if (!match) {
-            return res.status(400).json({ error: 'Invalid email or password' });
+            return res.redirect('/login');
         }
         req.session.account = email
         res.redirect('/verifierHome')
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).redirect('/login');
     }
 });
 

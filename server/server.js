@@ -29,9 +29,9 @@ app.use(session({
     secret: 'sdjadkajlsbdhvadbsbandnsjjakdnksnnnknsfjjddsnj',
     resave: false,
     saveUninitialized: true,
-    cookie: {
-        expires: 60000
-    }
+    // cookie: {
+    //     expires: 60000
+    // }
 }));
 
 
