@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=American+Captain&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./adminstyle.css">
+
+    <style>
+        .studentProfileDocuments li{
+            background-color: black;
+            color: white;
+            padding: 9px ;
+        }
+        .studentProfileDocuments ul{
+            padding: 3px 0;
+            margin: 5px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="card row my-5 mx-5 px-2 " style="width: 50rem; height: 17rem; border: 2px solid rgb(46, 178, 244); background-color:black">
+        <div class="col-lg-3 py-5 px-4 h-100" style="border-right:2px solid rgb(46, 178, 244)">
+            <img src="./th.jpeg" class="card-img-center object-fit-contain rounded my-3 " alt="..." height="90px" width="110px">
+        </div>
+        <div class="col-lg-9 h-100 p-4 ">
+            <div class="card-body p-0" style="text-align: left;">
+                <h5 class="card-title text-bright fs-2 fw-bold" style="color: yellow;">Request Details</h5>
+                <div>
+                    <p class="card-text text-bright d-inline fs-4">Student Name</p>
+                </div>
+                <div>
+                    <p class="card-text text-bright d-inline fs-4">Student Wallet address</p>
+                </div>
+                <div class="studentProfileDocuments ">
+                    <p class="card-text text-bright d-inline fs-4">Documents:</p>
+                    <ul class="list-group list-group-horizontal">
+                        <!-- <li class="list-group-item ">{document no 1}</li> -->
+                        <li class="list-group-item ">{Document name  1}</li>
+                        <li class="list-group-item ">
+                        <div class="col-lg-5 float-end">
+                            <button type="button" class="btn btn-lg  fw-bolder form-btn py-1 px-4  float-end" >Request</button>
+                        </div>
+                        </li>
+                    </ul>
+                    </div>
+            </div>
+        </div>
+      </div>
+</body>
+</html>
