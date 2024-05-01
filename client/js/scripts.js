@@ -98,11 +98,34 @@ document.getElementById('metamask').addEventListener('click', async (event) => {
 //    const res = await MoodContract.addUniversity('dasds' , '0x7897aE8fD52D055430A59E51AbB904B65a63e437' ,'sd' , true);
 //     console.log(res)
 
-         const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const accounts = await provider.listAccounts();
-            const signer = provider.getSigner(accounts[0]);
-            const signerAddress = await signer.getAddress();
+// const provider = new ethers.providers.Web3Provider(window.ethereum);
+// const accounts = await provider.send("eth_accounts", []);
+// const signerAddress = accounts[0];
         try{
+
+            // const res = await ethereum.request({
+            //     method: 'eth_requestAccounts',
+            //     params: {
+            //         eth_requestAccounts: {
+            //             account_request_permission: {
+            //                 origin: window.location.origin
+            //             }
+            //         }
+            //     }
+            // });
+            // const accounts = res.result;
+            // const signerAddress = accounts[0];
+
+
+            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+            const signerAddress = accounts[0]; // This should give you the first account
+    
+            if (signerAddress) {
+                console.log('Connected with address:', signerAddress);
+                // Proceed with using signerAddress
+            } else {
+                console.error('No accounts returned from MetaMask.');
+            }
             const response = await fetch('/check', {
                                     method: "POST",
                                     headers: {

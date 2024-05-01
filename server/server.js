@@ -1,3 +1,13 @@
+const express = require('express');
+const app = express();
+const cors = require("cors");
+const corsConfig = {
+    origin: "*",
+    credential: true,
+    methods: ["GET", "POST" ,"PUT" ,"DELETE"]
+}
+app.use(cors(corsConfig));
+
 const admin = require('./routes/admin.js')
 const contract = require('./controllers/contract.js')
 const check = require('./routes/check.js')
@@ -7,32 +17,34 @@ const verifierHome = require('./routes/verifierRegistration.js')
 const verifier = require('./routes/verifier.js')
 
 require('dotenv').config()
-const express = require('express');
+
 const {  Web3 } = require('web3');
 const fs = require('fs');
 const path = require('path')
-const cors = require("cors");
+
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const session  =require('express-session')
 const { db } = require('./config/db.js')
-
+const MongoStore = require('connect-mongo');
 
 // const contractAddress = process.env.COTRACT_ADDRESS; // Replace with the actual address of your deployed contract
 // const contractData = JSON.parse(fs.readFileSync('./build/contracts/BGV.json', 'utf8'));
 // const contractABI = contractData.abi;
 
-const app = express();
-app.use(cors());
+ 
 app.use(cookieParser())
 app.use(session({
     secret: 'sdjadkajlsbdhvadbsbandnsjjakdnksnnnknsfjjddsnj',
     resave: false,
     saveUninitialized: true,
-    // cookie: {
-    //     expires: 60000
-    // }
-}));
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+    }),
+    cookie: {
+      expires: 60000
+    }
+  }));
 
 
 
@@ -97,7 +109,9 @@ app.get('/', (req, res) => {
 
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, async () => {
+var server= app.listen(PORT, async () => {
     await db()
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+server.timeout = 120000;

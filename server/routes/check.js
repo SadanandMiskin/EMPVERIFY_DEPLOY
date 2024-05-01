@@ -12,22 +12,28 @@ router.post('/check', setSignerAddress, async(req, res) => {
     try {
         req.session.account = signerAddress;
 
-        const account = signerAddress.toLowerCase();
+            console.log(req.session.account)
+        const account = signerAddress.toString().toLowerCase();
         const accountAddress = await contract.methods.getAllUniversities().call();
         
+
+        // console.log('acccccc' , account)
+        // console.log('acsdbeudd' , accountAddress)
         const universityAddress = accountAddress.find(item => item.universityAddress.toLowerCase() === account);
         console.log(universityAddress)
+        // console.log('ssadsadasad' , universityAddress)
         // const studentAddresses = await contract.getAllStudentNames().call()
         // console.log(studentAddresses)
         const student = await studentModel.findOne({studentAddress: account})
         // console.log(student)
         if (universityAddress && universityAddress.universityAddress.toLowerCase() === account && universityAddress.universityAddress.toLowerCase() !== adminAddress) {
             req.session.university = account;
+            console.log(req.session.university)
             return res.json({ redirectTo: '/addStudent', message: '' });
         }
         // else if()
 
-        else if (account === adminAddress) {
+         if (account === adminAddress) {
             return res.json({ redirectTo: '/addUniversity', message: '' });
         }
         else if(student.studentAddress == account){

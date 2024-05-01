@@ -40,7 +40,7 @@ router.post('/addUniversity', upload.single("universityLogo"), async (req, res) 
 
        const result=  await universityModel.create({
         universityName: universityName,
-          universityAddress: universityWalletAddress,
+          universityAddress: universityWalletAddress.toLowerCase(),
           logo: logoData
 
         })
