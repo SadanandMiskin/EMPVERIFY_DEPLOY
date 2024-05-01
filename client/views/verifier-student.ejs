@@ -94,7 +94,7 @@
   <script>
     function fetchAndDisplayDocument(ipfsHash) {
       // Replace with your IPFS gateway URL (e.g., https://ipfs.io/ipfs/)
-      const ipfsGatewayUrl = 'http://127.0.0.1:8080/ipfs';
+      const ipfsGatewayUrl = 'https://gateway.pinata.cloud/ipfs';
 
       fetch(`${ipfsGatewayUrl}/${ipfsHash}`)
         .then(response => response.blob())
