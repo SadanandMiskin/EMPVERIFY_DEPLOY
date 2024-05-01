@@ -32,8 +32,7 @@ const MongoStore = require('connect-mongo');
 // const contractData = JSON.parse(fs.readFileSync('./build/contracts/BGV.json', 'utf8'));
 // const contractABI = contractData.abi;
 
-const app = express();
-app.use(cors());
+
 app.use(cookieParser())
 app.use(session({
     secret: 'sdjadkajlsbdhvadbsbandnsjjakdnksnnnknsfjjddsnj',

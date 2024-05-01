@@ -53,7 +53,7 @@ router.post('/check', setSignerAddress, async (req, res) => {
     const adminAddress = process.env.ADMIN_ADDRESS.toLowerCase();
   
     try {
-       
+    
 
         const account = signerAddress.toLowerCase();
         const accountAddress = await contract.methods.getAllUniversities().call();
