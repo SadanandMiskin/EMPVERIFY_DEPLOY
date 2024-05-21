@@ -38,7 +38,7 @@
 5. Open terminal and run `ipfs daemon`
 
 6. Install dependencies:
-    `npm install`
+    `npm install` or `yarn install`
    
 7.  Compile the contract using:
     - `npm run compile`
