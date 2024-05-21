@@ -1,3 +1,5 @@
+<h6>This repository is the Deployed version. To run the application locally <a href="https://github.com/kuldeepkumar2212/EMPVERIFY">Click Here</a>.</h6>
+
 ![logo](https://github.com/SadanandMiskin/EMPVERIFY/assets/119523972/82d6731a-401b-47f9-81cc-9d9fec1cfbcf)
 
 <p>EMPVERIFY is a  platform which allows Document verification of the Employee which is added by his/her organization by Verifier powered by Blockchain</p>
@@ -17,7 +19,8 @@
 
 
 ## Working 
-![image](https://github.com/SadanandMiskin/EMPVERIFY/assets/119523972/867de8ef-d818-4a6d-ab96-c62afa023b51) ![image](https://github.com/SadanandMiskin/EMPVERIFY/assets/119523972/5cd062cc-eb5e-41e1-a091-4d5b161a6d3d)
+![image](https://github.com/SadanandMiskin/EMPVERIFY/assets/119523972/867de8ef-d818-4a6d-ab96-c62afa023b51) ![image](https://github.com/SadanandMiskin/EMPVERIFY_DEPLOY/assets/119523972/e6d17b64-bf38-44a4-ba8c-f82ce735f8da)
+
 
 
 
@@ -42,9 +45,7 @@
 - (Copy the created contract address from "Transactions" tab in `Ganache` and paste in .env)
     
 8. Create a `.env` file in the root directory and add the following variables:
- - `ADMIN_ADDRESS=` ->(First account in Ganache)
- - `CONTRACT_ADDRESS=`
- - `MONGO_URI=`
+- as of `.env-example` 
    
 4. Run the development server:
    - `npm run dev`
