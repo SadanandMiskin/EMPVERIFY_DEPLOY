@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server/server.js",
     "start": "node server/server.js",
-    "compile": "truffle compile && truffle migrate"
+    "compile": "truffle compile && truffle migrate",
+    "build":"netlify build"
   },
   "keywords": [],
   "author": "",
